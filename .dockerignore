@@ -7,9 +7,7 @@
 .pytest_cache
 .ruff_cache
 .coverage
-.dev-server*.log
 __pycache__
 *.py[cod]
 *.sqlite3
-node_modules
 staticfiles

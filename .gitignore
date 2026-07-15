@@ -30,7 +30,5 @@ media/
 Thumbs.db
 
 # Local tooling
-.dev-server*.log
-node_modules/
 outputs/
 work/
