@@ -14,6 +14,25 @@
 .inline-arrow:hover { gap: 58px; }
 .inline-arrow-dark { color: var(--lime); }
 
+.home-outcomes { padding-top: 120px; padding-bottom: 120px; }
+.home-outcomes .section-heading { max-width: 920px; }
+.home-outcomes .section-heading > p:last-child { margin-top: 28px; color: #9eabba; }
+.outcome-grid { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 70px; border-top: 1px solid var(--line); }
+.outcome-grid article { min-height: 280px; padding: 28px 32px 35px 0; border-right: 1px solid var(--line); }
+.outcome-grid article + article { padding-left: 32px; }
+.outcome-grid article:last-child { border-right: 0; }
+.outcome-grid span { color: var(--lime); font-size: .74rem; font-weight: 900; }
+.outcome-grid h3 { margin: 65px 0 12px; font-size: 1.45rem; }
+.outcome-grid p { color: #9eabba; }
+.home-fit { display: grid; grid-template-columns: 1.1fr .85fr .85fr; gap: 55px; padding-top: 110px; padding-bottom: 120px; }
+.fit-heading h2 { margin: 0; font-family: var(--display); font-size: clamp(2.8rem, 4.6vw, 4.8rem); line-height: .95; text-transform: uppercase; }
+.fit-column { padding: 24px; border-top: 3px solid #9da5b1; background: white; }
+.fit-column.fit-positive { border-color: var(--blue-deep); }
+.fit-column > span { color: var(--blue-deep); font-size: .72rem; font-weight: 900; letter-spacing: .11em; text-transform: uppercase; }
+.fit-column ul { margin: 28px 0 0; padding: 0; list-style: none; }
+.fit-column li { padding: 13px 0 13px 20px; border-top: 1px solid #d8dce2; position: relative; color: #596373; }
+.fit-column li::before { content: "+"; position: absolute; left: 0; color: var(--blue-deep); font-weight: 900; }
+
 .service-code, .detail-code { color: var(--blue-deep); font-size: .76rem; font-weight: 900; letter-spacing: .14em; }
 
 .solutions-catalog { padding-top: 70px; padding-bottom: 120px; }
@@ -163,7 +182,10 @@
 .faq-list p { margin: 0 0 24px; color: #aab5c4; }
 
 @media (max-width: 1050px) {
-  .page-hero-grid, .home-intro, .impact-lab, .detail-body, .quality-gates, .manifesto, .stack, .contact-page, .comparison, .plan-faq { grid-template-columns: 1fr; gap: 55px; }
+  .page-hero-grid, .home-intro, .home-fit, .impact-lab, .detail-body, .quality-gates, .manifesto, .stack, .contact-page, .comparison, .plan-faq { grid-template-columns: 1fr; gap: 55px; }
+  .outcome-grid { grid-template-columns: 1fr; }
+  .outcome-grid article, .outcome-grid article + article { min-height: auto; padding: 28px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+  .outcome-grid h3 { margin-top: 35px; }
   .catalog-grid { grid-template-columns: 1fr 1fr; }
   .pricing-grid { grid-template-columns: 1fr; }
   .pricing-card { min-height: auto; }

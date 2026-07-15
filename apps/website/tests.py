@@ -23,6 +23,9 @@ class HomeTests(TestCase):
         self.assertNotContains(response, "Ventas digitales")
         self.assertNotContains(response, "Explorar las 6 soluciones")
         self.assertContains(response, "Explorar soluciones", count=1)
+        self.assertContains(response, "Menos dependencia de la memoria")
+        self.assertContains(response, "Puede encajar si")
+        self.assertContains(response, "Quizá aún no si")
         self.assertIn("default-src 'self'", response.headers["Content-Security-Policy"])
 
     def test_home_does_not_accept_diagnostic_submissions(self) -> None:
@@ -70,6 +73,7 @@ class PublicPageTests(TestCase):
         self.assertEqual(html.count(b'id="site-nav"'), 1)
         self.assertEqual(html.count(b'class="mobile-action-dock"'), 1)
         self.assertEqual(html.count(b'<main id="contenido">'), 1)
+        self.assertEqual(html.count(b'class="utility-home is-active"'), 1)
 
     def test_diagnostic_form_has_one_canonical_page(self) -> None:
         pages_without_form = (
@@ -115,10 +119,19 @@ class PublicPageTests(TestCase):
                 "message": "Necesitamos revisar accesos y respaldos.",
             },
         )
-        self.assertRedirects(response, reverse("contact"))
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.headers["Location"], reverse("contact"))
         self.assertEqual(DiagnosticRequest.objects.count(), 1)
         self.assertEqual(DiagnosticRequest.objects.get().plan, "norte-conecta")
         self.assertEqual(DiagnosticRequest.objects.get().country, "pe")
+
+        success_response = self.client.get(reverse("contact"))
+        self.assertContains(success_response, "data-submission-dialog", count=1)
+        self.assertContains(success_response, "Tu información fue enviada")
+        self.assertContains(success_response, 'data-home-url="/"')
+
+        refreshed_response = self.client.get(reverse("contact"))
+        self.assertNotContains(refreshed_response, "data-submission-dialog")
 
     def test_invalid_contact_request_is_not_saved(self) -> None:
         response = self.client.post(

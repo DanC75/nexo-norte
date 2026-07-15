@@ -99,6 +99,7 @@ document.querySelectorAll("[data-region-selector]").forEach((selector) => {
 
 countryField?.addEventListener("change", () => applyRegion(countryField.value));
 
+const submissionDialog = document.querySelector("[data-submission-dialog]");
 const regionDialog = document.querySelector("[data-region-dialog]");
 const detectedRegion = detectBrowserRegion();
 
@@ -110,6 +111,7 @@ const closeRegionDialog = () => {
 
 if (
   regionDialog &&
+  !submissionDialog &&
   detectedRegion &&
   detectedRegion !== window.NexoRegion.current &&
   !readRegionDecision()
@@ -140,6 +142,48 @@ if (
   });
 }
 
+if (submissionDialog) {
+  const countdown = submissionDialog.querySelector("[data-redirect-countdown]");
+  const stayButton = submissionDialog.querySelector("[data-stay-on-contact]");
+  const homeUrl = submissionDialog.dataset.homeUrl;
+  let remainingSeconds = 7;
+  let redirectTimer = null;
+
+  const stopRedirect = () => {
+    if (redirectTimer) window.clearInterval(redirectTimer);
+    redirectTimer = null;
+  };
+
+  const closeSubmissionDialog = () => {
+    stopRedirect();
+    if (submissionDialog.open && typeof submissionDialog.close === "function") {
+      submissionDialog.close();
+    } else {
+      submissionDialog.removeAttribute("open");
+    }
+  };
+
+  const returnHome = () => {
+    closeSubmissionDialog();
+    window.location.assign(homeUrl);
+  };
+
+  window.setTimeout(() => {
+    if (typeof submissionDialog.showModal === "function") submissionDialog.showModal();
+    else submissionDialog.setAttribute("open", "");
+  }, prefersReducedMotion ? 0 : 180);
+
+  redirectTimer = window.setInterval(() => {
+    remainingSeconds -= 1;
+    countdown.textContent = String(remainingSeconds);
+    if (remainingSeconds <= 0) returnHome();
+  }, 1000);
+
+  stayButton.addEventListener("click", closeSubmissionDialog);
+  submissionDialog.addEventListener("close", stopRedirect);
+  window.addEventListener("pagehide", stopRedirect, { once: true });
+}
+
 const revealTargets = document.querySelectorAll(
   "main > section, .catalog-card, .case-card, .pricing-card, .principle-grid article, " +
     ".stack-grid article, .related-grid a",
@@ -166,6 +210,12 @@ if (prefersReducedMotion || !("IntersectionObserver" in window)) {
 }
 
 document.documentElement.classList.add("motion-ready");
+
+window.addEventListener("pageshow", (event) => {
+  if (!event.persisted || prefersReducedMotion) return;
+  document.body.classList.remove("page-restored");
+  requestAnimationFrame(() => document.body.classList.add("page-restored"));
+});
 
 const scrollProgress = document.querySelector("[data-scroll-progress]");
 const heroGrid = document.querySelector(".hero-grid");
