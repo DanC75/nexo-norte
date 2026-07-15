@@ -23,6 +23,33 @@ const saveRegion = (region) => {
   }
 };
 
+const readRegionDecision = () => {
+  try {
+    return localStorage.getItem("nexo-region-confirmed");
+  } catch {
+    return null;
+  }
+};
+
+const confirmRegion = (region) => {
+  try {
+    localStorage.setItem("nexo-region-confirmed", region);
+  } catch {
+    // The dialog can still close normally when storage is unavailable.
+  }
+};
+
+const detectBrowserRegion = () => {
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const languages = navigator.languages?.length ? navigator.languages : [navigator.language];
+
+  if (timezone === "America/Lima") return "pe";
+  if (timezone === "America/Bogota") return "co";
+  if (languages.some((language) => /^es-PE\b/i.test(language))) return "pe";
+  if (languages.some((language) => /^es-CO\b/i.test(language))) return "co";
+  return null;
+};
+
 const applyRegion = (requestedRegion, persist = true) => {
   const region = regionConfig[requestedRegion] ? requestedRegion : "co";
   document.documentElement.dataset.region = region;
@@ -64,10 +91,54 @@ const initialRegion = readSavedRegion() || countryField?.value || "co";
 applyRegion(initialRegion, false);
 
 document.querySelectorAll("[data-region-selector]").forEach((selector) => {
-  selector.addEventListener("change", () => applyRegion(selector.value));
+  selector.addEventListener("change", () => {
+    applyRegion(selector.value);
+    confirmRegion(selector.value);
+  });
 });
 
 countryField?.addEventListener("change", () => applyRegion(countryField.value));
+
+const regionDialog = document.querySelector("[data-region-dialog]");
+const detectedRegion = detectBrowserRegion();
+
+const closeRegionDialog = () => {
+  if (!regionDialog?.open) return;
+  if (typeof regionDialog.close === "function") regionDialog.close();
+  else regionDialog.removeAttribute("open");
+};
+
+if (
+  regionDialog &&
+  detectedRegion &&
+  detectedRegion !== window.NexoRegion.current &&
+  !readRegionDecision()
+) {
+  const detectedCountry = regionConfig[detectedRegion].country;
+  const currentCountry = regionConfig[window.NexoRegion.current].country;
+  regionDialog.querySelectorAll("[data-detected-country]").forEach((element) => {
+    element.textContent = detectedCountry;
+  });
+  regionDialog.querySelectorAll("[data-current-country]").forEach((element) => {
+    element.textContent = currentCountry;
+  });
+
+  window.setTimeout(() => {
+    if (detectedRegion === window.NexoRegion.current || readRegionDecision()) return;
+    if (typeof regionDialog.showModal === "function") regionDialog.showModal();
+    else regionDialog.setAttribute("open", "");
+  }, prefersReducedMotion ? 0 : 450);
+
+  regionDialog.querySelector("[data-region-accept]").addEventListener("click", () => {
+    applyRegion(detectedRegion);
+    confirmRegion(detectedRegion);
+    closeRegionDialog();
+  });
+  regionDialog.querySelector("[data-region-stay]").addEventListener("click", () => {
+    confirmRegion(window.NexoRegion.current);
+    closeRegionDialog();
+  });
+}
 
 const revealTargets = document.querySelectorAll(
   "main > section:not(.signal-bar), .service-tile, .sector-grid article, .method-steps li, " +

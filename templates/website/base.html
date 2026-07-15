@@ -20,6 +20,20 @@
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
   <div class="scroll-progress" data-scroll-progress aria-hidden="true"></div>
 
+  <dialog class="region-dialog" data-region-dialog aria-labelledby="region-dialog-title" aria-describedby="region-dialog-description">
+    <div class="region-dialog-accent" aria-hidden="true"><span>N</span><small>Versión regional</small></div>
+    <div class="region-dialog-content">
+      <p class="region-dialog-eyebrow">Experiencia localizada</p>
+      <h2 id="region-dialog-title">¿Estás en <span data-detected-country>Perú</span>?</h2>
+      <p id="region-dialog-description">Parece que navegas desde <strong data-detected-country>Perú</strong>. Podemos mostrarte precios, moneda y formularios adaptados a ese país.</p>
+      <div class="region-dialog-actions">
+        <button class="button button-primary" type="button" data-region-accept>Ver versión de <span data-detected-country>Perú</span> <span aria-hidden="true">→</span></button>
+        <button class="region-stay" type="button" data-region-stay>Continuar en <span data-current-country>Colombia</span></button>
+      </div>
+      <small class="region-dialog-note">Podrás cambiar el país cuando quieras desde la barra superior.</small>
+    </div>
+  </dialog>
+
   <div class="navigation-shell">
     <div class="utility-bar" aria-label="Información del servicio">
       <p><span aria-hidden="true"></span> Seguridad desde el diseño</p>

@@ -48,6 +48,11 @@ class PublicPageTests(TestCase):
         self.assertContains(plans_response, "Perú · PEN")
         self.assertContains(plans_response, "S/ 1,450")
         self.assertContains(plans_response, "S/ 3,800")
+        self.assertContains(plans_response, "data-region-dialog", count=1)
+        self.assertContains(plans_response, "¿Estás en")
+
+        privacy_response = self.client.get(reverse("privacy"))
+        self.assertContains(privacy_response, "sin solicitar ubicación GPS")
 
         solutions_response = self.client.get(reverse("solutions"))
         self.assertContains(solutions_response, 'data-pe-value="25"')
