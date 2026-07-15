@@ -36,6 +36,6 @@ if (calculator) {
   };
 
   calculator.addEventListener("input", updateEstimate);
-  calculator.addEventListenen("submit", (event) => event.preventDefault());
+  calculator.addEventListener("submit", (event) => event.preventDefault());
   updateEstimate();
 }

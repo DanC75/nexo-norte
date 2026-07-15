@@ -74,11 +74,4 @@
     <a class="inline-arrow inline-arrow-dark" href="{% url 'method' %}">Ver entregables y controles de cada etapa <span>→</span></a>
   </section>
 
-  <section class="home-plans section-shell section-light">
-    <div class="section-heading"><p class="eyebrow eyebrow-dark"><span></span> Planes para comenzar</p><h2>Alcance visible.<br>Inversión orientativa.</h2><p>Cada plan tiene una frontera clara y puede crecer después sin desechar lo construido.</p></div>
-    <div class="home-plan-list">
-      {% for plan in plans %}<a href="{% url 'plans' %}"{% if plan.featured %} class="is-featured"{% endif %}><span>{{ plan.name }}{% if plan.featured %} · Recomendado{% endif %}</span><strong>{{ plan.price }}</strong><small>{{ plan.duration }} · Ver alcance →</small></a>{% endfor %}
-    </div>
-  </section>
-
 {% endblock %}

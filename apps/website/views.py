@@ -33,7 +33,6 @@ def home(request: HttpRequest) -> HttpResponse:
         {
             "services": SERVICES[:3],
             "method_stages": METHOD_STAGES,
-            "plans": PLANS,
         },
     )
 
