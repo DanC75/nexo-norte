@@ -12,3 +12,9 @@ class DiagnosticModelTests(TestCase):
             need="inventory",
         )
         self.assertEqual(str(request), "Ferretería El Puente — Laura Gómez")
+
+    def test_country_defaults_to_colombia_and_accepts_peru(self) -> None:
+        colombia_request = DiagnosticRequest()
+        peru_request = DiagnosticRequest(country=DiagnosticRequest.Country.PERU)
+        self.assertEqual(colombia_request.country, DiagnosticRequest.Country.COLOMBIA)
+        self.assertEqual(peru_request.get_country_display(), "Perú")

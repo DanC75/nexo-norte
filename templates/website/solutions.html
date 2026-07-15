@@ -28,8 +28,8 @@
     <div class="impact-copy"><p class="eyebrow"><span></span> Simulador orientativo</p><h2>Estima el costo de seguir trabajando manualmente.</h2><p>No es una promesa comercial. Es una herramienta para dimensionar dónde vale la pena investigar primero.</p></div>
     <form class="impact-calculator" data-impact-calculator>
       <label>Horas manuales por semana<input type="number" name="hours" min="0" max="500" value="12" inputmode="decimal"></label>
-      <label>Costo aproximado por hora (COP)<input type="number" name="hourly_cost" min="0" value="25000" inputmode="numeric"></label>
-      <label>Costo mensual de errores/reprocesos (COP)<input type="number" name="error_cost" min="0" value="300000" inputmode="numeric"></label>
+      <label>Costo aproximado por hora (<span data-region-text data-co="COP" data-pe="PEN">COP</span>)<input type="number" name="hourly_cost" min="0" value="25000" data-co-value="25000" data-pe-value="25" inputmode="numeric"></label>
+      <label>Costo mensual de errores/reprocesos (<span data-region-text data-co="COP" data-pe="PEN">COP</span>)<input type="number" name="error_cost" min="0" value="300000" data-co-value="300000" data-pe-value="290" inputmode="numeric"></label>
       <div class="impact-result" aria-live="polite"><span>Oportunidad anual estimada</span><strong data-impact-value>$0</strong><small data-impact-hours>0 horas al año para revisar</small></div>
     </form>
   </section>

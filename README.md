@@ -2,6 +2,8 @@
 
 Landing y base operativa de una empresa ficticia que ayuda a pequeños negocios a conectar ventas, inventario y seguridad.
 
+La experiencia comercial contempla atención remota en Colombia y Perú, con precios orientativos y simulaciones localizadas en COP y PEN.
+
 La primera versión utiliza la dirección visual **Impulso Norte**: una identidad tecnológica de alto contraste, con azul eléctrico y verde lima, diseñada para sentirse enérgica sin perder claridad.
 
 ## Arquitectura

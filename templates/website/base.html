@@ -18,11 +18,19 @@
 </head>
 <body class="{% block body_class %}{% endblock %}">
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <div class="scroll-progress" data-scroll-progress aria-hidden="true"></div>
 
   <div class="navigation-shell">
     <div class="utility-bar" aria-label="Información del servicio">
       <p><span aria-hidden="true"></span> Seguridad desde el diseño</p>
-      <p>Colombia · Atención remota</p>
+      <div class="region-switcher">
+        <label for="region-selector">País y moneda</label>
+        <select id="region-selector" data-region-selector aria-label="Seleccionar país y moneda">
+          <option value="co">Colombia · COP</option>
+          <option value="pe">Perú · PEN</option>
+        </select>
+        <span data-region-text data-co="Atención remota en Colombia" data-pe="Atención remota en Perú">Atención remota en Colombia</span>
+      </div>
     </div>
     <header class="site-header">
       <a class="brand" href="{% url 'home' %}" aria-label="Nexo Norte, inicio">
@@ -57,7 +65,7 @@
   <footer class="site-footer">
     <div class="footer-intro">
       <a class="brand" href="{% url 'home' %}"><span class="brand-mark" aria-hidden="true">N</span><span>Nexo Norte</span></a>
-      <p>Tecnología útil para negocios que quieren avanzar con control.</p>
+      <p>Tecnología útil para negocios de Colombia y Perú que quieren avanzar con control.</p>
     </div>
     <nav aria-label="Explorar">
       <strong>Explorar</strong>

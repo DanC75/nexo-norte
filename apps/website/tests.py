@@ -42,6 +42,17 @@ class PublicPageTests(TestCase):
                 response = self.client.get(reverse(name))
                 self.assertEqual(response.status_code, 200)
 
+    def test_regional_coverage_exposes_colombia_and_peru(self) -> None:
+        plans_response = self.client.get(reverse("plans"))
+        self.assertContains(plans_response, "Colombia · COP")
+        self.assertContains(plans_response, "Perú · PEN")
+        self.assertContains(plans_response, "S/ 1,450")
+        self.assertContains(plans_response, "S/ 3,800")
+
+        solutions_response = self.client.get(reverse("solutions"))
+        self.assertContains(solutions_response, 'data-pe-value="25"')
+        self.assertContains(solutions_response, 'data-pe="PEN"')
+
     def test_global_navigation_is_not_duplicated(self) -> None:
         response = self.client.get(reverse("home"))
         html = response.content
@@ -86,6 +97,7 @@ class PublicPageTests(TestCase):
             {
                 "name": "Carlos Ruiz",
                 "business": "Distribuciones Norte",
+                "country": "pe",
                 "email": "carlos@example.com",
                 "need": "security",
                 "plan": "norte-conecta",
@@ -95,11 +107,18 @@ class PublicPageTests(TestCase):
         self.assertRedirects(response, reverse("contact"))
         self.assertEqual(DiagnosticRequest.objects.count(), 1)
         self.assertEqual(DiagnosticRequest.objects.get().plan, "norte-conecta")
+        self.assertEqual(DiagnosticRequest.objects.get().country, "pe")
 
     def test_invalid_contact_request_is_not_saved(self) -> None:
         response = self.client.post(
             reverse("contact"),
-            {"name": "Laura", "business": "Negocio", "email": "no-es-email", "need": "sales"},
+            {
+                "name": "Laura",
+                "business": "Negocio",
+                "country": "co",
+                "email": "no-es-email",
+                "need": "sales",
+            },
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(DiagnosticRequest.objects.count(), 0)
@@ -111,6 +130,7 @@ class PublicPageTests(TestCase):
             {
                 "name": "Robot",
                 "business": "Spam",
+                "country": "co",
                 "email": "robot@example.com",
                 "need": "sales",
                 "website": "https://spam.example.com",
