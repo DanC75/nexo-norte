@@ -24,6 +24,7 @@ jobs:
           POSTGRES_DB: nexo_norte_test
           POSTGRES_USER: nexo_norte
           POSTGRES_PASSWORD: test-password
+          POSTGRES_INITDB_ARGS: --auth-local=scram-sha-256 --auth-host=scram-sha-256
         ports:
           - 5432:5432
         options: >-
