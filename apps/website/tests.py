@@ -10,6 +10,9 @@ class HomeTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Impulso Norte")
         self.assertContains(response, "Crece con control")
+        self.assertContains(response, "¿Qué necesitas resolver hoy?")
+        self.assertContains(response, "Planes y precios")
+        self.assertContains(response, "Solicitar diagnóstico")
         self.assertContains(response, "csrfmiddlewaretoken")
         self.assertIn("default-src 'self'", response.headers["Content-Security-Policy"])
 
@@ -59,6 +62,13 @@ class PublicPageTests(TestCase):
             with self.subTest(page=name):
                 response = self.client.get(reverse(name))
                 self.assertEqual(response.status_code, 200)
+
+    def test_global_navigation_is_not_duplicated(self) -> None:
+        response = self.client.get(reverse("home"))
+        html = response.content
+        self.assertEqual(html.count(b'id="site-nav"'), 1)
+        self.assertEqual(html.count(b'class="mobile-action-dock"'), 1)
+        self.assertEqual(html.count(b'<main id="contenido">'), 1)
 
     def test_solution_detail_renders_known_service(self) -> None:
         response = self.client.get(reverse("solution_detail", args=["seguridad-practica"]))

@@ -19,36 +19,61 @@
 <body class="{% block body_class %}{% endblock %}">
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
-  <header class="site-header">
-    <a class="brand" href="{% url 'home' %}" aria-label="Nexo Norte, inicio">
-      <span class="brand-mark" aria-hidden="true">N</span>
-      <span>Nexo Norte</span>
-    </a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
-      <span class="sr-only">Abrir menú</span><span></span><span></span>
-    </button>
-    <nav id="site-nav" class="site-nav" aria-label="Navegación principal">
-      <a {% if request.resolver_match.url_name == 'solutions' or request.resolver_match.url_name == 'solution_detail' %}class="is-active" aria-current="page"{% endif %} href="{% url 'solutions' %}">Soluciones</a>
-      <a {% if request.resolver_match.url_name == 'method' %}class="is-active" aria-current="page"{% endif %} href="{% url 'method' %}">Método</a>
-      <a {% if request.resolver_match.url_name == 'cases' %}class="is-active" aria-current="page"{% endif %} href="{% url 'cases' %}">Casos</a>
-      <a {% if request.resolver_match.url_name == 'plans' %}class="is-active" aria-current="page"{% endif %} href="{% url 'plans' %}">Planes</a>
-      <a {% if request.resolver_match.url_name == 'about' %}class="is-active" aria-current="page"{% endif %} href="{% url 'about' %}">Nosotros</a>
-      <a class="nav-cta" href="{% url 'contact' %}">Solicitar diagnóstico <span aria-hidden="true">↗</span></a>
-    </nav>
-  </header>
+  <div class="navigation-shell">
+    <div class="utility-bar" aria-label="Accesos rápidos">
+      <p><span aria-hidden="true"></span> Diagnóstico inicial sin costo</p>
+      <div>
+        <a href="{% url 'plans' %}">Ver inversión</a>
+        <a href="{% url 'contact' %}">Hablar de mi proyecto <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <header class="site-header">
+      <a class="brand" href="{% url 'home' %}" aria-label="Nexo Norte, inicio">
+        <span class="brand-mark" aria-hidden="true">N</span>
+        <span>Nexo Norte<small>Impulso empresarial</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="sr-only">Abrir menú</span><span></span><span></span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Navegación principal">
+        <a {% if request.resolver_match.url_name == 'solutions' or request.resolver_match.url_name == 'solution_detail' %}class="is-active" aria-current="page"{% endif %} href="{% url 'solutions' %}">Soluciones</a>
+        <a {% if request.resolver_match.url_name == 'plans' %}class="nav-priority is-active" aria-current="page"{% else %}class="nav-priority"{% endif %} href="{% url 'plans' %}">Planes y precios</a>
+        <a {% if request.resolver_match.url_name == 'method' %}class="is-active" aria-current="page"{% endif %} href="{% url 'method' %}">Cómo trabajamos</a>
+        <a {% if request.resolver_match.url_name == 'cases' %}class="is-active" aria-current="page"{% endif %} href="{% url 'cases' %}">Casos</a>
+        <a class="nav-cta{% if request.resolver_match.url_name == 'contact' %} is-active{% endif %}" {% if request.resolver_match.url_name == 'contact' %}aria-current="page"{% endif %} href="{% url 'contact' %}">Solicitar diagnóstico <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+  </div>
 
   <main id="contenido">{% block content %}{% endblock %}</main>
 
+  <aside class="mobile-action-dock" aria-label="Acciones principales">
+    <a href="{% url 'solutions' %}"><span aria-hidden="true">01</span>Soluciones</a>
+    <a href="{% url 'plans' %}"><span aria-hidden="true">02</span>Planes</a>
+    <a class="is-primary" href="{% url 'contact' %}"><span aria-hidden="true">→</span>Empezar</a>
+  </aside>
+
   <footer class="site-footer">
-    <a class="brand" href="{% url 'home' %}"><span class="brand-mark" aria-hidden="true">N</span><span>Nexo Norte</span></a>
-    <p>Tecnología útil para negocios que quieren avanzar con control.</p>
-    <div>
+    <div class="footer-intro">
+      <a class="brand" href="{% url 'home' %}"><span class="brand-mark" aria-hidden="true">N</span><span>Nexo Norte</span></a>
+      <p>Tecnología útil para negocios que quieren avanzar con control.</p>
+    </div>
+    <nav aria-label="Explorar">
+      <strong>Explorar</strong>
       <a href="{% url 'solutions' %}">Soluciones</a>
-      <a href="{% url 'method' %}">Método</a>
+      <a href="{% url 'plans' %}">Planes y precios</a>
+      <a href="{% url 'method' %}">Cómo trabajamos</a>
       <a href="{% url 'cases' %}">Casos</a>
-      <a href="{% url 'plans' %}">Planes</a>
-      <a href="{% url 'contact' %}">Contacto</a>
+    </nav>
+    <nav aria-label="Empresa">
+      <strong>Empresa</strong>
+      <a href="{% url 'about' %}">Nosotros</a>
       <a href="{% url 'privacy' %}">Privacidad</a>
+    </nav>
+    <div class="footer-start">
+      <strong>¿Tienes un reto operativo?</strong>
+      <p>Convirtámoslo en un primer paso claro y verificable.</p>
+      <a class="button button-primary" href="{% url 'contact' %}">Solicitar diagnóstico <span aria-hidden="true">→</span></a>
     </div>
     <small>© {% now "Y" %} Nexo Norte · Impulso Norte. Proyecto empresarial demostrativo de Daniel Castro.</small>
   </footer>
