@@ -31,6 +31,7 @@
       <a {% if request.resolver_match.url_name == 'solutions' or request.resolver_match.url_name == 'solution_detail' %}class="is-active" aria-current="page"{% endif %} href="{% url 'solutions' %}">Soluciones</a>
       <a {% if request.resolver_match.url_name == 'method' %}class="is-active" aria-current="page"{% endif %} href="{% url 'method' %}">Método</a>
       <a {% if request.resolver_match.url_name == 'cases' %}class="is-active" aria-current="page"{% endif %} href="{% url 'cases' %}">Casos</a>
+      <a {% if request.resolver_match.url_name == 'plans' %}class="is-active" aria-current="page"{% endif %} href="{% url 'plans' %}">Planes</a>
       <a {% if request.resolver_match.url_name == 'about' %}class="is-active" aria-current="page"{% endif %} href="{% url 'about' %}">Nosotros</a>
       <a class="nav-cta" href="{% url 'contact' %}">Solicitar diagnóstico <span aria-hidden="true">↗</span></a>
     </nav>
@@ -45,6 +46,7 @@
       <a href="{% url 'solutions' %}">Soluciones</a>
       <a href="{% url 'method' %}">Método</a>
       <a href="{% url 'cases' %}">Casos</a>
+      <a href="{% url 'plans' %}">Planes</a>
       <a href="{% url 'contact' %}">Contacto</a>
       <a href="{% url 'privacy' %}">Privacidad</a>
     </div>

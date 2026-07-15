@@ -55,12 +55,30 @@
     <a class="service-all" href="{% url 'solutions' %}"><strong>Explorar las 6 soluciones</strong><span aria-hidden="true">→</span></a>
   </section>
 
+  <section class="sectors section-shell">
+    <div class="section-heading section-heading-dark"><p class="eyebrow"><span></span> Diseñado para operaciones reales</p><h2>Un mismo método.<br>Retos distintos.</h2></div>
+    <div class="sector-grid">
+      <article><span>01</span><h2>Comercio</h2><p>Ventas, inventario, reposición y visibilidad de márgenes.</p></article>
+      <article><span>02</span><h2>Servicios</h2><p>Oportunidades, propuestas, capacidad y seguimiento al cliente.</p></article>
+      <article><span>03</span><h2>Distribución</h2><p>Pedidos, movimientos, entregas y trazabilidad operativa.</p></article>
+      <article><span>04</span><h2>Equipos en crecimiento</h2><p>Accesos, automatización, indicadores y continuidad.</p></article>
+    </div>
+    <a class="inline-arrow inline-arrow-dark" href="{% url 'cases' %}">Explorar escenarios demostrativos <span>→</span></a>
+  </section>
+
   <section class="method section-shell">
     <div class="section-heading section-heading-dark"><p class="eyebrow"><span></span> Una ruta controlada</p><h2>Avanzamos por etapas.<br><em>Sin saltos a ciegas.</em></h2></div>
     <ol class="method-steps">
       {% for stage in method_stages %}<li><span>{{ stage.code }}</span><h3>{{ stage.title }}</h3><p>{{ stage.text }}</p></li>{% endfor %}
     </ol>
     <a class="inline-arrow inline-arrow-dark" href="{% url 'method' %}">Ver entregables y controles de cada etapa <span>→</span></a>
+  </section>
+
+  <section class="home-plans section-shell section-light">
+    <div class="section-heading"><p class="eyebrow eyebrow-dark"><span></span> Planes para comenzar</p><h2>Alcance visible.<br>Inversión orientativa.</h2><p>Cada plan tiene una frontera clara y puede crecer después sin desechar lo construido.</p></div>
+    <div class="home-plan-list">
+      {% for plan in plans %}<a href="{% url 'plans' %}"{% if plan.featured %} class="is-featured"{% endif %}><span>{{ plan.name }}{% if plan.featured %} · Recomendado{% endif %}</span><strong>{{ plan.price }}</strong><small>{{ plan.duration }} · Ver alcance →</small></a>{% endfor %}
+    </div>
   </section>
 
   <section class="contact section-shell" id="diagnostico">

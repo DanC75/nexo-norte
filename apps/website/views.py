@@ -4,14 +4,18 @@ from django.shortcuts import redirect, render
 from django.views.decorators.http import require_http_methods
 
 from apps.diagnostics.forms import DiagnosticRequestForm
+from apps.diagnostics.models import DiagnosticRequest
 
-from .content import CASE_SCENARIOS, METHOD_STAGES, SERVICES
+from .content import CASE_SCENARIOS, METHOD_STAGES, PLAN_COMPARISON, PLANS, SERVICES
 
 
 def _diagnostic_page(
     request: HttpRequest, template_name: str, success_url: str, **context: object
 ) -> HttpResponse:
-    form = DiagnosticRequestForm(request.POST or None)
+    requested_plan = request.GET.get("plan", "")
+    valid_plans = {choice for choice, _label in DiagnosticRequest.Plan.choices}
+    initial = {"plan": requested_plan} if requested_plan in valid_plans else None
+    form = DiagnosticRequestForm(request.POST or None, initial=initial)
     if request.method == "POST" and form.is_valid():
         form.save()
         messages.success(
@@ -29,6 +33,7 @@ def home(request: HttpRequest) -> HttpResponse:
         "home",
         services=SERVICES[:3],
         method_stages=METHOD_STAGES,
+        plans=PLANS,
     )
 
 
@@ -58,6 +63,14 @@ def cases(request: HttpRequest) -> HttpResponse:
 
 def about(request: HttpRequest) -> HttpResponse:
     return render(request, "website/about.html")
+
+
+def plans(request: HttpRequest) -> HttpResponse:
+    return render(
+        request,
+        "website/plans.html",
+        {"plans": PLANS, "plan_comparison": PLAN_COMPARISON},
+    )
 
 
 @require_http_methods(["GET", "POST"])

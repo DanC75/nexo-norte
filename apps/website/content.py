@@ -141,3 +141,71 @@ CASE_SCENARIOS = (
         "result": "Meta orientativa: reducir el impacto de errores e incidentes comunes.",
     },
 )
+
+PLANS = (
+    {
+        "slug": "norte-base",
+        "name": "Norte Base",
+        "eyebrow": "Ordenar un proceso crítico",
+        "price": "$1.490.000",
+        "price_note": "COP · implementación desde",
+        "duration": "2 a 3 semanas",
+        "audience": "Microempresa o equipo de hasta 5 personas",
+        "featured": False,
+        "description": "Para negocios que necesitan resolver un cuello de botella concreto y crear una base medible.",
+        "features": (
+            "Diagnóstico y línea base",
+            "Un proceso priorizado",
+            "Una solución funcional",
+            "Controles básicos de seguridad",
+            "Capacitación y documentación",
+            "15 días de acompañamiento",
+        ),
+    },
+    {
+        "slug": "norte-conecta",
+        "name": "Norte Conecta",
+        "eyebrow": "Conectar operación y decisiones",
+        "price": "$3.900.000",
+        "price_note": "COP · implementación desde",
+        "duration": "4 a 6 semanas",
+        "audience": "Negocio en crecimiento con varias funciones",
+        "featured": True,
+        "description": "Para equipos que ya necesitan conectar dos frentes y reducir trabajo manual entre áreas.",
+        "features": (
+            "Todo lo incluido en Norte Base",
+            "Dos procesos conectados",
+            "Automatización priorizada",
+            "Tablero de indicadores",
+            "Matriz de accesos y respaldos",
+            "30 días de acompañamiento",
+        ),
+    },
+    {
+        "slug": "norte-escala",
+        "name": "Norte Escala",
+        "eyebrow": "Construir una plataforma integral",
+        "price": "A medida",
+        "price_note": "propuesta después del diagnóstico",
+        "duration": "8 semanas o más",
+        "audience": "Operación con múltiples áreas o integraciones",
+        "featured": False,
+        "description": "Para organizaciones que necesitan arquitectura, integraciones y entrega continua entre varias áreas.",
+        "features": (
+            "Hoja de ruta empresarial",
+            "Múltiples procesos e integraciones",
+            "Arquitectura y datos compartidos",
+            "Pipeline DevSecOps",
+            "Monitoreo y recuperación",
+            "90 días de acompañamiento",
+        ),
+    },
+)
+
+PLAN_COMPARISON = (
+    ("Procesos incluidos", "1", "2", "Según alcance"),
+    ("Automatización", "Básica", "Priorizada", "Integral"),
+    ("Panel de indicadores", "Línea base", "Incluido", "Multifuncional"),
+    ("Seguridad", "Controles esenciales", "Accesos y respaldos", "DevSecOps completo"),
+    ("Acompañamiento", "15 días", "30 días", "90 días"),
+)

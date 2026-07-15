@@ -16,7 +16,7 @@ class DiagnosticRequestForm(forms.ModelForm):
 
     class Meta:
         model = DiagnosticRequest
-        fields = ["name", "business", "email", "need", "message"]
+        fields = ["name", "business", "email", "need", "plan", "message"]
         widgets = {
             "name": forms.TextInput(attrs={"placeholder": "Tu nombre", "autocomplete": "name"}),
             "business": forms.TextInput(attrs={"placeholder": "Nombre de tu negocio"}),
@@ -24,6 +24,7 @@ class DiagnosticRequestForm(forms.ModelForm):
                 attrs={"placeholder": "nombre@negocio.com", "autocomplete": "email"}
             ),
             "need": forms.Select(),
+            "plan": forms.Select(),
             "message": forms.Textarea(
                 attrs={"placeholder": "Cuéntanos brevemente qué quieres mejorar", "rows": 4}
             ),

@@ -54,7 +54,7 @@ class HomeTests(TestCase):
 
 class PublicPageTests(TestCase):
     def test_all_company_pages_render(self) -> None:
-        page_names = ("solutions", "method", "cases", "about", "contact", "privacy")
+        page_names = ("solutions", "method", "cases", "about", "plans", "contact", "privacy")
         for name in page_names:
             with self.subTest(page=name):
                 response = self.client.get(reverse(name))
@@ -78,8 +78,20 @@ class PublicPageTests(TestCase):
                 "business": "Distribuciones Norte",
                 "email": "carlos@example.com",
                 "need": "security",
+                "plan": "norte-conecta",
                 "message": "Necesitamos revisar accesos y respaldos.",
             },
         )
         self.assertRedirects(response, reverse("contact"))
         self.assertEqual(DiagnosticRequest.objects.count(), 1)
+        self.assertEqual(DiagnosticRequest.objects.get().plan, "norte-conecta")
+
+    def test_plan_link_preselects_contact_form(self) -> None:
+        response = self.client.get(reverse("contact"), {"plan": "norte-base"})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<option value="norte-base" selected>')
+
+    def test_unknown_plan_is_not_preselected(self) -> None:
+        response = self.client.get(reverse("contact"), {"plan": "inventado"})
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, '<option value="inventado" selected>')
