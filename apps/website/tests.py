@@ -16,7 +16,13 @@ class HomeTests(TestCase):
         self.assertNotContains(response, '<form method="post"')
         self.assertNotContains(response, 'class="decision-path')
         self.assertNotContains(response, 'class="home-plans')
+        self.assertNotContains(response, 'class="service-preview')
+        self.assertNotContains(response, 'class="sector-grid')
+        self.assertNotContains(response, 'class="method-steps')
         self.assertNotContains(response, "Norte Base")
+        self.assertNotContains(response, "Ventas digitales")
+        self.assertNotContains(response, "Explorar las 6 soluciones")
+        self.assertContains(response, "Explorar soluciones", count=1)
         self.assertIn("default-src 'self'", response.headers["Content-Security-Policy"])
 
     def test_home_does_not_accept_diagnostic_submissions(self) -> None:

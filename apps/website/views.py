@@ -27,14 +27,7 @@ def _diagnostic_page(
 
 @require_GET
 def home(request: HttpRequest) -> HttpResponse:
-    return render(
-        request,
-        "website/home.html",
-        {
-            "services": SERVICES[:3],
-            "method_stages": METHOD_STAGES,
-        },
-    )
+    return render(request, "website/home.html")
 
 
 def solutions(request: HttpRequest) -> HttpResponse:

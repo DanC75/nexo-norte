@@ -141,8 +141,8 @@ if (
 }
 
 const revealTargets = document.querySelectorAll(
-  "main > section:not(.signal-bar), .service-tile, .sector-grid article, .method-steps li, " +
-    ".catalog-card, .case-card, .pricing-card, .principle-grid article, .stack-grid article, .related-grid a",
+  "main > section, .catalog-card, .case-card, .pricing-card, .principle-grid article, " +
+    ".stack-grid article, .related-grid a",
 );
 
 revealTargets.forEach((target) => target.classList.add("reveal-item"));
@@ -191,7 +191,7 @@ updateScrollEffects();
 window.addEventListener("scroll", requestScrollUpdate, { passive: true });
 
 if (!prefersReducedMotion && window.matchMedia("(pointer: fine)").matches) {
-  document.querySelectorAll(".service-tile, .catalog-card, .pricing-card").forEach((surface) => {
+  document.querySelectorAll(".catalog-card, .pricing-card").forEach((surface) => {
     surface.classList.add("motion-surface");
     surface.addEventListener("pointermove", (event) => {
       const bounds = surface.getBoundingClientRect();

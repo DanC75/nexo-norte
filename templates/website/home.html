@@ -29,8 +29,6 @@
     </div>
   </section>
 
-  <section class="signal-bar" aria-label="Áreas de trabajo"><span>Ventas</span><i></i><span>Operación</span><i></i><span>Automatización</span><i></i><span>Datos</span><i></i><span>Seguridad</span></section>
-
   <section class="home-intro section-shell section-light">
     <div class="section-heading">
       <p class="eyebrow eyebrow-dark"><span></span> De problema aislado a solución conectada</p>
@@ -40,38 +38,6 @@
       <p>Primero identificamos el cuello de botella que más cuesta. Después construimos una solución medible que pueda integrarse con el resto del negocio.</p>
       <a class="inline-arrow" href="{% url 'method' %}">Conocer el método <span>→</span></a>
     </div>
-  </section>
-
-  <section class="service-preview section-shell section-light">
-    {% for service in services %}
-      <article class="service-tile">
-        <span class="service-code">{{ service.code }}</span>
-        <h2>{{ service.title }}</h2>
-        <p>{{ service.summary }}</p>
-        <ul>{% for outcome in service.outcomes %}<li>{{ outcome }}</li>{% endfor %}</ul>
-        <a href="{% url 'solution_detail' service.slug %}">Ver solución <span aria-hidden="true">↗</span></a>
-      </article>
-    {% endfor %}
-    <a class="service-all" href="{% url 'solutions' %}"><strong>Explorar las 6 soluciones</strong><span aria-hidden="true">→</span></a>
-  </section>
-
-  <section class="sectors section-shell">
-    <div class="section-heading section-heading-dark"><p class="eyebrow"><span></span> Diseñado para operaciones reales</p><h2>Un mismo método.<br>Retos distintos.</h2></div>
-    <div class="sector-grid">
-      <article><span>01</span><h2>Comercio</h2><p>Ventas, inventario, reposición y visibilidad de márgenes.</p></article>
-      <article><span>02</span><h2>Servicios</h2><p>Oportunidades, propuestas, capacidad y seguimiento al cliente.</p></article>
-      <article><span>03</span><h2>Distribución</h2><p>Pedidos, movimientos, entregas y trazabilidad operativa.</p></article>
-      <article><span>04</span><h2>Equipos en crecimiento</h2><p>Accesos, automatización, indicadores y continuidad.</p></article>
-    </div>
-    <a class="inline-arrow inline-arrow-dark" href="{% url 'cases' %}">Explorar escenarios demostrativos <span>→</span></a>
-  </section>
-
-  <section class="method section-shell">
-    <div class="section-heading section-heading-dark"><p class="eyebrow"><span></span> Una ruta controlada</p><h2>Avanzamos por etapas.<br><em>Sin saltos a ciegas.</em></h2></div>
-    <ol class="method-steps">
-      {% for stage in method_stages %}<li><span>{{ stage.code }}</span><h3>{{ stage.title }}</h3><p>{{ stage.text }}</p></li>{% endfor %}
-    </ol>
-    <a class="inline-arrow inline-arrow-dark" href="{% url 'method' %}">Ver entregables y controles de cada etapa <span>→</span></a>
   </section>
 
 {% endblock %}
