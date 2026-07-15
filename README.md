@@ -15,11 +15,16 @@ La primera versión utiliza la dirección visual **Impulso Norte**: una identida
 
 El código está organizado por dominio:
 
-- `config/`: configuración y enrutamiento general.
+- `config/settings/`: configuración separada para local, pruebas y producción.
+- `apps/accounts/`: identidad y usuario extensible.
+- `apps/organizations/`: empresas, membresías y roles.
+- `apps/audit/`: trazabilidad de eventos relevantes.
 - `apps/website/`: experiencia pública y composición de la landing.
 - `apps/diagnostics/`: formulario, modelo y administración de solicitudes.
 - `apps/monitoring/`: endpoint de salud para operación y contenedores.
 - `templates/` y `static/`: presentación separada de la lógica de negocio.
+
+La explicación completa está en [`docs/architecture.md`](docs/architecture.md).
 
 ## Funcionalidades actuales
 
@@ -49,7 +54,7 @@ La aplicación espera a que PostgreSQL esté saludable, aplica las migraciones y
 ```powershell
 python -m venv .venv
 .venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
+python -m pip install -r requirements-dev.txt
 python manage.py migrate
 python manage.py runserver
 ```
@@ -59,9 +64,13 @@ Cuando no se define `POSTGRES_HOST`, Django utiliza SQLite solamente para facili
 ## Comandos de verificación
 
 ```powershell
-python manage.py makemigrations --check --dry-run
-python manage.py test
-python manage.py check
+ruff format --check .
+ruff check .
+mypy apps config
+python manage.py makemigrations --check --dry-run --settings=config.settings.test
+pytest --cov=apps
+pip-audit -r requirements-dev.txt --strict
+python manage.py check --deploy --settings=config.settings.production
 docker compose config
 docker build -t nexo-norte:local .
 ```
@@ -94,5 +103,8 @@ docker build -t nexo-norte:local .
 - Las solicitudes POST usan protección CSRF.
 - Las cookies seguras, HSTS y redirección HTTPS se activan fuera de desarrollo.
 - CodeQL analiza el código y Dependabot vigila dependencias y acciones.
+- Gitleaks busca secretos y Dependency Review bloquea dependencias vulnerables en pull requests.
+- La cobertura mínima exigida es 80 % y cada cambio pasa formato, lint, tipado y pruebas.
 
-Consulta [SECURITY.md](SECURITY.md) para reportar vulnerabilidades.
+Consulta [SECURITY.md](SECURITY.md) para reportar vulnerabilidades y
+[`docs/threat-model.md`](docs/threat-model.md) para conocer las amenazas consideradas.
