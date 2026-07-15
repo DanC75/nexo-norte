@@ -11,6 +11,7 @@ class HomeTests(TestCase):
         self.assertContains(response, "Impulso Norte")
         self.assertContains(response, "Crece con control")
         self.assertContains(response, "csrfmiddlewaretoken")
+        self.assertIn("default-src 'self'", response.headers["Content-Security-Policy"])
 
     def test_valid_diagnostic_request_is_saved(self) -> None:
         response = self.client.post(
@@ -34,3 +35,51 @@ class HomeTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(DiagnosticRequest.objects.count(), 0)
         self.assertContains(response, "Ingrese una dirección de correo electrónico válida")
+
+    def test_honeypot_rejects_automated_submission(self) -> None:
+        response = self.client.post(
+            reverse("home"),
+            {
+                "name": "Robot",
+                "business": "Spam",
+                "email": "robot@example.com",
+                "need": "sales",
+                "website": "https://spam.example.com",
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(DiagnosticRequest.objects.count(), 0)
+        self.assertContains(response, "No fue posible procesar la solicitud")
+
+
+class PublicPageTests(TestCase):
+    def test_all_company_pages_render(self) -> None:
+        page_names = ("solutions", "method", "cases", "about", "contact", "privacy")
+        for name in page_names:
+            with self.subTest(page=name):
+                response = self.client.get(reverse(name))
+                self.assertEqual(response.status_code, 200)
+
+    def test_solution_detail_renders_known_service(self) -> None:
+        response = self.client.get(reverse("solution_detail", args=["seguridad-practica"]))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Seguridad práctica")
+        self.assertContains(response, "Matriz de accesos")
+
+    def test_unknown_solution_returns_not_found(self) -> None:
+        response = self.client.get(reverse("solution_detail", args=["no-existe"]))
+        self.assertEqual(response.status_code, 404)
+
+    def test_contact_page_saves_diagnostic_request(self) -> None:
+        response = self.client.post(
+            reverse("contact"),
+            {
+                "name": "Carlos Ruiz",
+                "business": "Distribuciones Norte",
+                "email": "carlos@example.com",
+                "need": "security",
+                "message": "Necesitamos revisar accesos y respaldos.",
+            },
+        )
+        self.assertRedirects(response, reverse("contact"))
+        self.assertEqual(DiagnosticRequest.objects.count(), 1)

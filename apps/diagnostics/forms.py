@@ -1,9 +1,19 @@
+from typing import Any
+
 from django import forms
 
 from .models import DiagnosticRequest
 
 
 class DiagnosticRequestForm(forms.ModelForm):
+    website = forms.CharField(
+        required=False,
+        label="Sitio web",
+        widget=forms.TextInput(
+            attrs={"autocomplete": "off", "tabindex": "-1", "aria-hidden": "true"}
+        ),
+    )
+
     class Meta:
         model = DiagnosticRequest
         fields = ["name", "business", "email", "need", "message"]
@@ -18,3 +28,9 @@ class DiagnosticRequestForm(forms.ModelForm):
                 attrs={"placeholder": "Cuéntanos brevemente qué quieres mejorar", "rows": 4}
             ),
         }
+
+    def clean(self) -> dict[str, Any]:
+        cleaned_data = super().clean() or {}
+        if cleaned_data.get("website"):
+            raise forms.ValidationError("No fue posible procesar la solicitud.")
+        return cleaned_data

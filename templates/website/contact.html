@@ -1,0 +1,9 @@
+{% extends "website/base.html" %}
+{% block title %}Solicitar diagnóstico | Nexo Norte{% endblock %}
+{% block meta_description %}Cuéntanos qué necesita mejorar tu negocio y prepara un primer diagnóstico con Nexo Norte.{% endblock %}
+{% block content %}
+  <section class="contact-page section-shell">
+    <div class="contact-copy"><p class="eyebrow"><span></span> Hablemos del punto de partida</p><h1>Una conversación clara antes de cualquier propuesta.</h1><p>Describe la necesidad principal de tu negocio. La solicitud quedará registrada de forma segura para preparar el diagnóstico.</p><ul class="contact-expectations"><li>Respuesta contextual, no automática</li><li>Alcance inicial pequeño y medible</li><li>Sin compromiso comercial</li></ul></div>
+    <div class="form-panel">{% include "website/partials/diagnostic_form.html" %}</div>
+  </section>
+{% endblock %}

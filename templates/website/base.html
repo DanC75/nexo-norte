@@ -1,0 +1,55 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{% block meta_description %}Nexo Norte diseña soluciones digitales, operativas y seguras para negocios en crecimiento.{% endblock %}">
+  <meta name="theme-color" content="#111827">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Nexo Norte">
+  <meta property="og:title" content="{% block og_title %}Nexo Norte | Soluciones empresariales con control{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}Tecnología útil para convertir procesos dispersos en una operación conectada y segura.{% endblock %}">
+  <title>{% block title %}Nexo Norte | Soluciones empresariales con control{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/site.css' %}">
+  <link rel="stylesheet" href="{% static 'css/pages.css' %}">
+  <script src="{% static 'js/site.js' %}" defer></script>
+  {% block head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <header class="site-header">
+    <a class="brand" href="{% url 'home' %}" aria-label="Nexo Norte, inicio">
+      <span class="brand-mark" aria-hidden="true">N</span>
+      <span>Nexo Norte</span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span class="sr-only">Abrir menú</span><span></span><span></span>
+    </button>
+    <nav id="site-nav" class="site-nav" aria-label="Navegación principal">
+      <a {% if request.resolver_match.url_name == 'solutions' or request.resolver_match.url_name == 'solution_detail' %}class="is-active" aria-current="page"{% endif %} href="{% url 'solutions' %}">Soluciones</a>
+      <a {% if request.resolver_match.url_name == 'method' %}class="is-active" aria-current="page"{% endif %} href="{% url 'method' %}">Método</a>
+      <a {% if request.resolver_match.url_name == 'cases' %}class="is-active" aria-current="page"{% endif %} href="{% url 'cases' %}">Casos</a>
+      <a {% if request.resolver_match.url_name == 'about' %}class="is-active" aria-current="page"{% endif %} href="{% url 'about' %}">Nosotros</a>
+      <a class="nav-cta" href="{% url 'contact' %}">Solicitar diagnóstico <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main id="contenido">{% block content %}{% endblock %}</main>
+
+  <footer class="site-footer">
+    <a class="brand" href="{% url 'home' %}"><span class="brand-mark" aria-hidden="true">N</span><span>Nexo Norte</span></a>
+    <p>Tecnología útil para negocios que quieren avanzar con control.</p>
+    <div>
+      <a href="{% url 'solutions' %}">Soluciones</a>
+      <a href="{% url 'method' %}">Método</a>
+      <a href="{% url 'cases' %}">Casos</a>
+      <a href="{% url 'contact' %}">Contacto</a>
+      <a href="{% url 'privacy' %}">Privacidad</a>
+    </div>
+    <small>© {% now "Y" %} Nexo Norte · Impulso Norte. Proyecto empresarial demostrativo de Daniel Castro.</small>
+  </footer>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

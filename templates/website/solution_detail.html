@@ -1,0 +1,16 @@
+{% extends "website/base.html" %}
+{% block title %}{{ service.title }} | Nexo Norte{% endblock %}
+{% block meta_description %}{{ service.summary }}{% endblock %}
+{% block content %}
+  <section class="detail-hero section-shell">
+    <a class="back-link" href="{% url 'solutions' %}">← Todas las soluciones</a>
+    <span class="detail-code">{{ service.code }}</span>
+    <h1>{{ service.title }}</h1><p>{{ service.description }}</p>
+  </section>
+  <section class="detail-body section-shell section-light">
+    <article><p class="eyebrow eyebrow-dark"><span></span> Resultados buscados</p><ul class="large-list">{% for outcome in service.outcomes %}<li>{{ outcome }}</li>{% endfor %}</ul></article>
+    <article><p class="eyebrow eyebrow-dark"><span></span> Entregables iniciales</p><ol class="deliverable-list">{% for deliverable in service.deliverables %}<li><span>0{{ forloop.counter }}</span>{{ deliverable }}</li>{% endfor %}</ol></article>
+  </section>
+  <section class="related section-shell"><p class="eyebrow"><span></span> También puede conectarse con</p><div class="related-grid">{% for item in related_services %}<a href="{% url 'solution_detail' item.slug %}"><span>{{ item.code }}</span><strong>{{ item.title }}</strong><small>Explorar →</small></a>{% endfor %}</div></section>
+  {% include "website/partials/cta.html" %}
+{% endblock %}

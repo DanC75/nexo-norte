@@ -14,4 +14,12 @@ if (menuButton && navigation) {
       navigation.classList.remove("is-open");
     }
   });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && navigation.classList.contains("is-open")) {
+      menuButton.setAttribute("aria-expanded", "false");
+      navigation.classList.remove("is-open");
+      menuButton.focus();
+    }
+  });
 }

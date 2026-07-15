@@ -1,0 +1,17 @@
+{% if messages %}
+  {% for message in messages %}<div class="form-success" role="status">{{ message }}</div>{% endfor %}
+{% endif %}
+<form method="post" novalidate>
+  {% csrf_token %}
+  {{ form.non_field_errors }}
+  <div class="trap-field" aria-hidden="true">{{ form.website }}</div>
+  <div class="field-row">
+    <div class="field"><label for="{{ form.name.id_for_label }}">Nombre</label>{{ form.name }}{{ form.name.errors }}</div>
+    <div class="field"><label for="{{ form.business.id_for_label }}">Negocio</label>{{ form.business }}{{ form.business.errors }}</div>
+  </div>
+  <div class="field"><label for="{{ form.email.id_for_label }}">Correo electrónico</label>{{ form.email }}{{ form.email.errors }}</div>
+  <div class="field"><label for="{{ form.need.id_for_label }}">¿Qué necesitas mejorar primero?</label>{{ form.need }}{{ form.need.errors }}</div>
+  <div class="field"><label for="{{ form.message.id_for_label }}">Cuéntanos un poco más <span>(opcional)</span></label>{{ form.message }}{{ form.message.errors }}</div>
+  <button class="button button-primary button-submit" type="submit">Solicitar diagnóstico <span aria-hidden="true">→</span></button>
+  <p class="privacy-note">Usaremos tus datos únicamente para responder esta solicitud. Consulta nuestra <a href="{% url 'privacy' %}">política de privacidad</a>.</p>
+</form>

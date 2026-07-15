@@ -1,174 +1,75 @@
-{% load static %}
-<!doctype html>
-<html lang="es">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Nexo Norte conecta ventas, inventario y seguridad para que los pequeños negocios crezcan con control.">
-  <meta name="theme-color" content="#111827">
-  <title>Nexo Norte | Digitaliza tu negocio con control</title>
-  <link rel="stylesheet" href="{% static 'css/site.css' %}">
-  <script src="{% static 'js/site.js' %}" defer></script>
-</head>
-<body>
-  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+{% extends "website/base.html" %}
 
-  <header class="site-header">
-    <a class="brand" href="#inicio" aria-label="Nexo Norte, inicio">
-      <span class="brand-mark" aria-hidden="true">N</span>
-      <span>Nexo Norte</span>
-    </a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
-      <span class="sr-only">Abrir menú</span>
-      <span></span><span></span>
-    </button>
-    <nav id="site-nav" class="site-nav" aria-label="Navegación principal">
-      <a href="#soluciones">Soluciones</a>
-      <a href="#metodo">Método</a>
-      <a href="#seguridad">Seguridad</a>
-      <a class="nav-cta" href="#diagnostico">Solicitar diagnóstico <span aria-hidden="true">↗</span></a>
-    </nav>
-  </header>
+{% block title %}Nexo Norte | Digitaliza tu negocio con control{% endblock %}
+{% block meta_description %}Nexo Norte conecta ventas, inventario, automatización, datos y seguridad para negocios que quieren crecer con control.{% endblock %}
 
-  <main id="contenido">
-    <section id="inicio" class="hero section-shell">
-      <div class="hero-grid" aria-hidden="true"></div>
-      <div class="hero-copy">
-        <p class="eyebrow"><span></span> Impulso Norte · Tecnología útil para pequeños negocios</p>
-        <h1>Ordena tu negocio.<br>Vende con claridad.<br><em>Crece con control.</em></h1>
-        <p class="hero-lead">Conectamos ventas, inventario y seguridad en un sistema simple, útil y preparado para crecer contigo.</p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="#diagnostico">Solicitar diagnóstico <span aria-hidden="true">→</span></a>
-          <a class="text-link" href="#metodo">Ver cómo trabajamos <span aria-hidden="true">↓</span></a>
-        </div>
-        <ul class="hero-proof" aria-label="Ventajas de Nexo Norte">
-          <li><strong>01</strong> Diagnóstico claro</li>
-          <li><strong>02</strong> Implementación gradual</li>
-          <li><strong>03</strong> Acompañamiento real</li>
-        </ul>
+{% block content %}
+  <section class="hero section-shell">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-copy">
+      <p class="eyebrow"><span></span> Impulso Norte · Soluciones empresariales conectadas</p>
+      <h1>Ordena tu negocio.<br>Decide con datos.<br><em>Crece con control.</em></h1>
+      <p class="hero-lead">Diseñamos sistemas que conectan operación, ventas y seguridad para convertir tareas dispersas en una empresa preparada para avanzar.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="{% url 'contact' %}">Solicitar diagnóstico <span aria-hidden="true">→</span></a>
+        <a class="text-link" href="{% url 'solutions' %}">Explorar soluciones <span aria-hidden="true">↗</span></a>
       </div>
+      <ul class="hero-proof" aria-label="Ventajas de Nexo Norte">
+        <li><strong>06</strong> Frentes de solución</li>
+        <li><strong>04</strong> Etapas controladas</li>
+        <li><strong>01</strong> Plan conectado</li>
+      </ul>
+    </div>
+    <div class="system-map" aria-label="Sistema empresarial conectado">
+      <div class="map-label">Operación conectada</div>
+      <div class="connection connection-one"></div><div class="connection connection-two"></div>
+      <article class="system-card card-sales"><span class="card-code">01</span><div class="system-icon" aria-hidden="true">$</div><h2>Ingresos</h2><p>Ventas, clientes y oportunidades dentro del mismo flujo.</p></article>
+      <article class="system-card card-inventory"><span class="card-code">02</span><div class="system-icon" aria-hidden="true">□</div><h2>Operación</h2><p>Inventario, tareas y datos visibles para decidir a tiempo.</p></article>
+      <article class="system-card card-security"><span class="card-code">03</span><div class="system-icon" aria-hidden="true">◇</div><h2>Confianza</h2><p>Accesos, respaldos y entregas diseñadas con seguridad.</p></article>
+    </div>
+  </section>
 
-      <div class="system-map" aria-label="Sistema conectado de ventas, inventario y seguridad">
-        <div class="map-label">Un negocio conectado</div>
-        <div class="connection connection-one"></div>
-        <div class="connection connection-two"></div>
-        <article class="system-card card-sales">
-          <span class="card-code">01</span>
-          <div class="system-icon" aria-hidden="true">$</div>
-          <h2>Ventas</h2>
-          <p>Pedidos, cotizaciones y seguimiento en un solo flujo.</p>
-        </article>
-        <article class="system-card card-inventory">
-          <span class="card-code">02</span>
-          <div class="system-icon" aria-hidden="true">□</div>
-          <h2>Inventario</h2>
-          <p>Existencias, movimientos y alertas para decidir a tiempo.</p>
-        </article>
-        <article class="system-card card-security">
-          <span class="card-code">03</span>
-          <div class="system-icon" aria-hidden="true">◇</div>
-          <h2>Seguridad</h2>
-          <p>Accesos, respaldos y prácticas que protegen tu operación.</p>
-        </article>
-      </div>
-    </section>
+  <section class="signal-bar" aria-label="Áreas de trabajo"><span>Ventas</span><i></i><span>Operación</span><i></i><span>Automatización</span><i></i><span>Datos</span><i></i><span>Seguridad</span></section>
 
-    <section class="signal-bar" aria-label="Áreas de trabajo">
-      <span>Ventas digitales</span><i></i><span>Inventario conectado</span><i></i><span>Seguridad práctica</span><i></i><span>Decisiones con datos</span>
-    </section>
+  <section class="home-intro section-shell section-light">
+    <div class="section-heading">
+      <p class="eyebrow eyebrow-dark"><span></span> De problema aislado a solución conectada</p>
+      <h2>No vendemos herramientas sueltas.</h2>
+    </div>
+    <div class="editorial-copy">
+      <p>Primero identificamos el cuello de botella que más cuesta. Después construimos una solución medible que pueda integrarse con el resto del negocio.</p>
+      <a class="inline-arrow" href="{% url 'method' %}">Conocer el método <span>→</span></a>
+    </div>
+  </section>
 
-    <section id="soluciones" class="solutions section-shell section-light">
-      <div class="section-heading">
-        <p class="eyebrow eyebrow-dark"><span></span> Lo que resolvemos</p>
-        <h2>Menos procesos sueltos.<br>Más control del negocio.</h2>
-        <p>Empezamos por el problema que más frena tu operación y conectamos lo demás sin complicarte.</p>
-      </div>
-      <div class="solution-list">
-        <article>
-          <span class="solution-number">01</span>
-          <div><h3>Ventas organizadas</h3><p>Centraliza clientes, cotizaciones, pedidos y seguimiento para que ninguna oportunidad se pierda.</p></div>
-          <span class="solution-arrow" aria-hidden="true">↗</span>
-        </article>
-        <article>
-          <span class="solution-number">02</span>
-          <div><h3>Inventario visible</h3><p>Conoce qué tienes, qué se mueve y qué debes reponer antes de que afecte tus ventas.</p></div>
-          <span class="solution-arrow" aria-hidden="true">↗</span>
-        </article>
-        <article>
-          <span class="solution-number">03</span>
-          <div><h3>Operación protegida</h3><p>Define accesos, respaldos y controles sencillos que reduzcan riesgos sin detener el trabajo.</p></div>
-          <span class="solution-arrow" aria-hidden="true">↗</span>
-        </article>
-      </div>
-    </section>
+  <section class="service-preview section-shell section-light">
+    {% for service in services %}
+      <article class="service-tile">
+        <span class="service-code">{{ service.code }}</span>
+        <h2>{{ service.title }}</h2>
+        <p>{{ service.summary }}</p>
+        <ul>{% for outcome in service.outcomes %}<li>{{ outcome }}</li>{% endfor %}</ul>
+        <a href="{% url 'solution_detail' service.slug %}">Ver solución <span aria-hidden="true">↗</span></a>
+      </article>
+    {% endfor %}
+    <a class="service-all" href="{% url 'solutions' %}"><strong>Explorar las 6 soluciones</strong><span aria-hidden="true">→</span></a>
+  </section>
 
-    <section id="metodo" class="method section-shell">
-      <div class="section-heading section-heading-dark">
-        <p class="eyebrow"><span></span> Nuestro método</p>
-        <h2>Avanzamos por etapas.<br><em>Sin saltos a ciegas.</em></h2>
-      </div>
-      <ol class="method-steps">
-        <li><span>01</span><h3>Diagnóstico</h3><p>Entendemos el proceso actual, los riesgos y el resultado que necesitas.</p></li>
-        <li><span>02</span><h3>Diseño</h3><p>Proponemos una solución pequeña, medible y alineada con tu forma de trabajar.</p></li>
-        <li><span>03</span><h3>Implementación</h3><p>Configuramos, probamos y ponemos en marcha cada cambio de forma gradual.</p></li>
-        <li><span>04</span><h3>Acompañamiento</h3><p>Capacitamos a tu equipo, observamos resultados y mejoramos lo necesario.</p></li>
-      </ol>
-    </section>
+  <section class="method section-shell">
+    <div class="section-heading section-heading-dark"><p class="eyebrow"><span></span> Una ruta controlada</p><h2>Avanzamos por etapas.<br><em>Sin saltos a ciegas.</em></h2></div>
+    <ol class="method-steps">
+      {% for stage in method_stages %}<li><span>{{ stage.code }}</span><h3>{{ stage.title }}</h3><p>{{ stage.text }}</p></li>{% endfor %}
+    </ol>
+    <a class="inline-arrow inline-arrow-dark" href="{% url 'method' %}">Ver entregables y controles de cada etapa <span>→</span></a>
+  </section>
 
-    <section id="seguridad" class="security section-shell section-light">
-      <div class="security-visual" aria-hidden="true">
-        <div class="security-ring ring-one"></div>
-        <div class="security-ring ring-two"></div>
-        <div class="security-core">N</div>
-        <span class="security-node node-one">Accesos</span>
-        <span class="security-node node-two">Respaldos</span>
-        <span class="security-node node-three">Monitoreo</span>
-      </div>
-      <div class="security-copy">
-        <p class="eyebrow eyebrow-dark"><span></span> Seguridad desde el inicio</p>
-        <h2>Crecer también significa proteger lo que construyes.</h2>
-        <p>No añadimos seguridad al final. Cada solución considera quién accede, cómo se respalda la información y cómo se detectan los problemas.</p>
-        <ul>
-          <li>Permisos según responsabilidades</li>
-          <li>Copias de seguridad verificables</li>
-          <li>Actualizaciones y seguimiento</li>
-          <li>Buenas prácticas explicadas con claridad</li>
-        </ul>
-      </div>
-    </section>
-
-    <section id="diagnostico" class="contact section-shell">
-      <div class="contact-copy">
-        <p class="eyebrow"><span></span> Primer paso</p>
-        <h2>Cuéntanos qué está frenando tu negocio.</h2>
-        <p>El diagnóstico inicial nos permite identificar una mejora concreta y definir un punto de partida realista.</p>
-        <div class="contact-note"><strong>Sin soluciones genéricas.</strong><br>Primero entendemos. Después proponemos.</div>
-      </div>
-      <div class="form-panel">
-        {% if messages %}
-          {% for message in messages %}<div class="form-success" role="status">{{ message }}</div>{% endfor %}
-        {% endif %}
-        <form method="post" novalidate>
-          {% csrf_token %}
-          <div class="field-row">
-            <div class="field"><label for="{{ form.name.id_for_label }}">Nombre</label>{{ form.name }}{{ form.name.errors }}</div>
-            <div class="field"><label for="{{ form.business.id_for_label }}">Negocio</label>{{ form.business }}{{ form.business.errors }}</div>
-          </div>
-          <div class="field"><label for="{{ form.email.id_for_label }}">Correo electrónico</label>{{ form.email }}{{ form.email.errors }}</div>
-          <div class="field"><label for="{{ form.need.id_for_label }}">¿Qué necesitas mejorar primero?</label>{{ form.need }}{{ form.need.errors }}</div>
-          <div class="field"><label for="{{ form.message.id_for_label }}">Cuéntanos un poco más <span>(opcional)</span></label>{{ form.message }}{{ form.message.errors }}</div>
-          <button class="button button-primary button-submit" type="submit">Solicitar diagnóstico <span aria-hidden="true">→</span></button>
-          <p class="privacy-note">Usaremos tus datos únicamente para responder esta solicitud.</p>
-        </form>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <a class="brand" href="#inicio"><span class="brand-mark" aria-hidden="true">N</span><span>Nexo Norte</span></a>
-    <p>Tecnología útil para negocios que quieren avanzar con control.</p>
-    <div><a href="#soluciones">Soluciones</a><a href="#metodo">Método</a><a href="#diagnostico">Contacto</a></div>
-    <small>© {% now "Y" %} Nexo Norte. Proyecto demostrativo.</small>
-  </footer>
-</body>
-</html>
+  <section class="contact section-shell" id="diagnostico">
+    <div class="contact-copy">
+      <p class="eyebrow"><span></span> Diagnóstico empresarial</p>
+      <h2>Cuéntanos qué está frenando tu operación.</h2>
+      <p>Convertiremos tu necesidad principal en un punto de partida claro, pequeño y verificable.</p>
+      <div class="contact-note"><strong>Sin soluciones genéricas.</strong><br>Primero entendemos. Después proponemos.</div>
+    </div>
+    <div class="form-panel">{% include "website/partials/diagnostic_form.html" %}</div>
+  </section>
+{% endblock %}
