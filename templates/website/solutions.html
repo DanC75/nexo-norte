@@ -3,10 +3,7 @@
 {% block meta_description %}Soluciones de ventas, inventario, automatización, datos, seguridad y continuidad para negocios en crecimiento.{% endblock %}
 {% block body_class %}page-solutions{% endblock %}
 {% block content %}
-  <section class="page-hero section-shell">
-    <p class="eyebrow"><span></span> Portafolio de soluciones</p>
-    <div class="page-hero-grid"><h1>Una empresa conectada se construye por frentes.</h1><p>Seleccionamos la capacidad que más valor aporta hoy y la dejamos preparada para integrarse con las siguientes.</p></div>
-  </section>
+  {% include "website/partials/page_hero.html" with eyebrow="Portafolio de soluciones" heading="Una empresa conectada se construye por frentes." summary="Seleccionamos la capacidad que más valor aporta hoy y la dejamos preparada para integrarse con las siguientes." %}
 
   <section class="solutions-catalog section-shell section-light">
     <div class="filter-bar" role="group" aria-label="Filtrar soluciones">
@@ -36,6 +33,5 @@
       <div class="impact-result" aria-live="polite"><span>Oportunidad anual estimada</span><strong data-impact-value>$0</strong><small data-impact-hours>0 horas al año para revisar</small></div>
     </form>
   </section>
-  {% include "website/partials/cta.html" %}
 {% endblock %}
 {% block scripts %}<script src="{% static 'js/solutions.js' %}" defer></script>{% endblock %}

@@ -2,13 +2,7 @@
 {% block title %}Planes empresariales | Nexo Norte{% endblock %}
 {% block meta_description %}Compara los planes Norte Base, Norte Conecta y Norte Escala para iniciar la transformación de tu negocio.{% endblock %}
 {% block content %}
-  <section class="page-hero section-shell">
-    <p class="eyebrow"><span></span> Planes Impulso Norte</p>
-    <div class="page-hero-grid">
-      <h1>Un alcance claro antes de empezar.</h1>
-      <p>Paquetes diseñados para comenzar con control. Los precios son orientativos y se confirman después de entender el proceso, los datos y el riesgo.</p>
-    </div>
-  </section>
+  {% include "website/partials/page_hero.html" with eyebrow="Planes Impulso Norte" heading="Un alcance claro antes de empezar." summary="Paquetes diseñados para comenzar con control. Los precios son orientativos y se confirman después de entender el proceso, los datos y el riesgo." %}
 
   <section class="pricing-section section-shell section-light">
     <div class="plan-principles" aria-label="Cómo leer los planes">
@@ -58,5 +52,4 @@
       <details><summary>¿Puedo comenzar con Base y crecer después?</summary><p>Sí. Cada plan está diseñado para dejar documentación y una base que pueda conectarse con la siguiente etapa.</p></details>
     </div>
   </section>
-  {% include "website/partials/cta.html" %}
 {% endblock %}

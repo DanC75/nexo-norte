@@ -2,7 +2,7 @@
 {% block title %}Método Impulso Norte | Nexo Norte{% endblock %}
 {% block meta_description %}Una metodología en cuatro etapas para descubrir, priorizar, implementar y acompañar mejoras empresariales.{% endblock %}
 {% block content %}
-  <section class="page-hero section-shell"><p class="eyebrow"><span></span> Método Impulso Norte</p><div class="page-hero-grid"><h1>Progreso visible, riesgo controlado.</h1><p>Cada etapa produce una decisión, un entregable y una evidencia. Así el proyecto puede avanzar sin depender de promesas vagas.</p></div></section>
+  {% include "website/partials/page_hero.html" with eyebrow="Método Impulso Norte" heading="Progreso visible, riesgo controlado." summary="Cada etapa produce una decisión, un entregable y una evidencia. Así el proyecto puede avanzar sin depender de promesas vagas." %}
   <section class="method-timeline section-shell section-light">
     {% for stage in method_stages %}<article><span>{{ stage.code }}</span><div><h2>{{ stage.title }}</h2><p>{{ stage.text }}</p></div><strong>{% cycle 'Mapa y línea base' 'Prioridades y alcance' 'Solución probada' 'Métricas y siguiente paso' %}</strong></article>{% endfor %}
   </section>
@@ -10,5 +10,4 @@
     <div><p class="eyebrow"><span></span> Controles transversales</p><h2>La seguridad y la calidad no son una etapa final.</h2></div>
     <div class="gate-grid"><article><span>01</span><h3>Alcance verificable</h3><p>Criterios de aceptación antes de construir.</p></article><article><span>02</span><h3>Cambios trazables</h3><p>Versionado, revisión y pruebas automáticas.</p></article><article><span>03</span><h3>Datos mínimos</h3><p>Recolectamos solo lo necesario y definimos su uso.</p></article><article><span>04</span><h3>Operación preparada</h3><p>Documentación, monitoreo y recuperación.</p></article></div>
   </section>
-  {% include "website/partials/cta.html" %}
 {% endblock %}

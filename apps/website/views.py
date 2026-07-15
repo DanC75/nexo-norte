@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_GET, require_http_methods
 
 from apps.diagnostics.forms import DiagnosticRequestForm
 from apps.diagnostics.models import DiagnosticRequest
@@ -25,15 +25,16 @@ def _diagnostic_page(
     return render(request, template_name, {"form": form, **context})
 
 
-@require_http_methods(["GET", "POST"])
+@require_GET
 def home(request: HttpRequest) -> HttpResponse:
-    return _diagnostic_page(
+    return render(
         request,
         "website/home.html",
-        "home",
-        services=SERVICES[:3],
-        method_stages=METHOD_STAGES,
-        plans=PLANS,
+        {
+            "services": SERVICES[:3],
+            "method_stages": METHOD_STAGES,
+            "plans": PLANS,
+        },
     )
 
 

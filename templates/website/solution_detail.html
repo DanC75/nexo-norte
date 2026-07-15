@@ -12,5 +12,4 @@
     <article><p class="eyebrow eyebrow-dark"><span></span> Entregables iniciales</p><ol class="deliverable-list">{% for deliverable in service.deliverables %}<li><span>0{{ forloop.counter }}</span>{{ deliverable }}</li>{% endfor %}</ol></article>
   </section>
   <section class="related section-shell"><p class="eyebrow"><span></span> También puede conectarse con</p><div class="related-grid">{% for item in related_services %}<a href="{% url 'solution_detail' item.slug %}"><span>{{ item.code }}</span><strong>{{ item.title }}</strong><small>Explorar →</small></a>{% endfor %}</div></section>
-  {% include "website/partials/cta.html" %}
 {% endblock %}

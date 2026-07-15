@@ -11,8 +11,8 @@
       <h1>Ordena tu negocio.<br>Decide con datos.<br><em>Crece con control.</em></h1>
       <p class="hero-lead">Diseñamos sistemas que conectan operación, ventas y seguridad para convertir tareas dispersas en una empresa preparada para avanzar.</p>
       <div class="hero-actions">
-        <a class="button button-primary" href="{% url 'contact' %}">Solicitar diagnóstico <span aria-hidden="true">→</span></a>
-        <a class="text-link" href="{% url 'solutions' %}">Explorar soluciones <span aria-hidden="true">↗</span></a>
+        <a class="button button-primary" href="{% url 'solutions' %}">Explorar soluciones <span aria-hidden="true">→</span></a>
+        <a class="text-link" href="{% url 'plans' %}">Ver planes y precios <span aria-hidden="true">↗</span></a>
       </div>
       <ul class="hero-proof" aria-label="Ventajas de Nexo Norte">
         <li><strong>06</strong> Frentes de solución</li>
@@ -28,13 +28,6 @@
       <article class="system-card card-security"><span class="card-code">03</span><div class="system-icon" aria-hidden="true">◇</div><h2>Confianza</h2><p>Accesos, respaldos y entregas diseñadas con seguridad.</p></article>
     </div>
   </section>
-
-  <nav class="decision-path section-shell" aria-label="Elige tu siguiente paso">
-    <p><span>Empieza aquí</span> ¿Qué necesitas resolver hoy?</p>
-    <a href="{% url 'solutions' %}"><span>01</span><strong>Ordenar mi operación</strong><small>Explorar soluciones →</small></a>
-    <a href="{% url 'plans' %}"><span>02</span><strong>Comparar la inversión</strong><small>Ver planes y precios →</small></a>
-    <a href="{% url 'contact' %}"><span>03</span><strong>Hablar de mi proyecto</strong><small>Solicitar diagnóstico →</small></a>
-  </nav>
 
   <section class="signal-bar" aria-label="Áreas de trabajo"><span>Ventas</span><i></i><span>Operación</span><i></i><span>Automatización</span><i></i><span>Datos</span><i></i><span>Seguridad</span></section>
 
@@ -88,13 +81,4 @@
     </div>
   </section>
 
-  <section class="contact section-shell" id="diagnostico">
-    <div class="contact-copy">
-      <p class="eyebrow"><span></span> Diagnóstico empresarial</p>
-      <h2>Cuéntanos qué está frenando tu operación.</h2>
-      <p>Convertiremos tu necesidad principal en un punto de partida claro, pequeño y verificable.</p>
-      <div class="contact-note"><strong>Sin soluciones genéricas.</strong><br>Primero entendemos. Después proponemos.</div>
-    </div>
-    <div class="form-panel">{% include "website/partials/diagnostic_form.html" %}</div>
-  </section>
 {% endblock %}

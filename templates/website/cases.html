@@ -2,9 +2,8 @@
 {% block title %}Escenarios empresariales | Nexo Norte{% endblock %}
 {% block meta_description %}Escenarios demostrativos que muestran cómo Nexo Norte aborda problemas de operación, ventas y continuidad.{% endblock %}
 {% block content %}
-  <section class="page-hero section-shell"><p class="eyebrow"><span></span> Escenarios demostrativos</p><div class="page-hero-grid"><h1>Del problema cotidiano a un resultado medible.</h1><p>Estos escenarios explican nuestro enfoque. No representan clientes ni resultados históricos inventados.</p></div></section>
+  {% include "website/partials/page_hero.html" with eyebrow="Escenarios demostrativos" heading="Del problema cotidiano a un resultado medible." summary="Estos escenarios explican nuestro enfoque. No representan clientes ni resultados históricos inventados." %}
   <section class="case-list section-shell section-light">
     {% for case in case_scenarios %}<article class="case-card"><div><span>0{{ forloop.counter }}</span><p>{{ case.sector }}</p></div><h2>{{ case.title }}</h2><dl><dt>Reto</dt><dd>{{ case.challenge }}</dd><dt>Intervención</dt><dd>{{ case.solution }}</dd><dt>Resultado buscado</dt><dd>{{ case.result }}</dd></dl></article>{% endfor %}
   </section>
-  {% include "website/partials/cta.html" %}
 {% endblock %}

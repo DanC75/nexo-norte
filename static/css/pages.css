@@ -45,7 +45,7 @@
 .catalog-card > p:not(.catalog-category) { color: #596373; }
 
 .impact-lab { padding-top: 120px; padding-bottom: 120px; display: grid; grid-template-columns: .85fr 1.15fr; gap: 100px; }
-.impact-copy h2, .closing-cta h2, .quality-gates h2, .manifesto h2, .stack h2 { margin: 0; font-family: var(--display); font-size: clamp(3rem, 5vw, 5.3rem); line-height: .95; text-transform: uppercase; }
+.impact-copy h2, .quality-gates h2, .manifesto h2, .stack h2 { margin: 0; font-family: var(--display); font-size: clamp(3rem, 5vw, 5.3rem); line-height: .95; text-transform: uppercase; }
 .impact-copy > p:last-child { color: #a6b1c0; }
 .impact-calculator { padding: 40px; border: 1px solid var(--blue); background: #0d1628; }
 .impact-calculator label { display: grid; grid-template-columns: 1fr 180px; gap: 20px; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--line); color: #d9e0eb; }
@@ -120,8 +120,6 @@
 .legal-copy h2 { margin: 0; font-size: 1.1rem; }
 .legal-copy p { margin: 0; color: #aab5c4; }
 
-.closing-cta { padding-top: 90px; padding-bottom: 90px; display: grid; grid-template-columns: 1fr auto; gap: 70px; align-items: end; border-top: 1px solid var(--line); }
-.closing-cta h2 { max-width: 900px; }
 
 .home-plans { padding-top: 110px; padding-bottom: 120px; display: grid; grid-template-columns: .85fr 1.15fr; gap: 90px; }
 .home-plan-list { display: grid; gap: 12px; }
@@ -202,7 +200,6 @@
   .case-card dl { grid-column: auto; }
   .principle-grid article, .principle-grid article + article { padding: 25px 0; border-right: 0; border-bottom: 1px solid var(--line); }
   .legal-copy section { grid-template-columns: 1fr; gap: 8px; }
-  .closing-cta { grid-template-columns: 1fr; }
   .continuity-plan { grid-template-columns: 1fr; }
   .home-plan-list a { grid-template-columns: 1fr; }
   .home-plan-list strong { grid-row: auto; grid-column: auto; }
