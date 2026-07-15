@@ -21,9 +21,10 @@ services:
       - path: .env
         required: false
     environment:
-      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-unsafe-development-key-change-me}
-      DJANGO_DEBUG: ${DJANGO_DEBUG:-true}
+      DJANGO_SETTINGS_MODULE: config.settings.production
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-unsafe-development-key-change-me-please-rotate}
       DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:-localhost,127.0.0.1}
+      DJANGO_SECURE_SSL_REDIRECT: ${DJANGO_SECURE_SSL_REDIRECT:-false}
       POSTGRES_DB: ${POSTGRES_DB:-nexo_norte}
       POSTGRES_USER: ${POSTGRES_USER:-nexo_norte}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-nexo_norte_dev}
