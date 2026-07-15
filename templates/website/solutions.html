@@ -1,0 +1,37 @@
+{% extends "website/base.html" %}{% load static %}
+{% block title %}Soluciones empresariales | Nexo Norte{% endblock %}
+{% block meta_description %}Soluciones de ventas, inventario, automatización, datos, seguridad y continuidad para negocios en crecimiento.{% endblock %}
+{% block body_class %}page-solutions{% endblock %}
+{% block content %}
+  {% include "website/partials/page_hero.html" with eyebrow="Portafolio de soluciones" heading="Una empresa conectada se construye por frentes." summary="Seleccionamos la capacidad que más valor aporta hoy y la dejamos preparada para integrarse con las siguientes." %}
+
+  <section class="solutions-catalog section-shell section-light">
+    <div class="filter-bar" role="group" aria-label="Filtrar soluciones">
+      <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">Todas</button>
+      <button class="filter-button" type="button" data-filter="growth" aria-pressed="false">Crecimiento</button>
+      <button class="filter-button" type="button" data-filter="operations" aria-pressed="false">Operación</button>
+      <button class="filter-button" type="button" data-filter="security" aria-pressed="false">Seguridad</button>
+    </div>
+    <div class="catalog-grid" data-service-grid>
+      {% for service in services %}
+        <article class="catalog-card" data-category="{{ service.category }}">
+          <span class="service-code">{{ service.code }}</span><p class="catalog-category">{{ service.category }}</p>
+          <h2>{{ service.title }}</h2><p>{{ service.summary }}</p>
+          <ul>{% for outcome in service.outcomes %}<li>{{ outcome }}</li>{% endfor %}</ul>
+          <a href="{% url 'solution_detail' service.slug %}">Explorar solución <span aria-hidden="true">↗</span></a>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="impact-lab section-shell">
+    <div class="impact-copy"><p class="eyebrow"><span></span> Simulador orientativo</p><h2>Estima el costo de seguir trabajando manualmente.</h2><p>No es una promesa comercial. Es una herramienta para dimensionar dónde vale la pena investigar primero.</p></div>
+    <form class="impact-calculator" data-impact-calculator>
+      <label>Horas manuales por semana<input type="number" name="hours" min="0" max="500" value="12" inputmode="decimal"></label>
+      <label>Costo aproximado por hora (COP)<input type="number" name="hourly_cost" min="0" value="25000" inputmode="numeric"></label>
+      <label>Costo mensual de errores/reprocesos (COP)<input type="number" name="error_cost" min="0" value="300000" inputmode="numeric"></label>
+      <div class="impact-result" aria-live="polite"><span>Oportunidad anual estimada</span><strong data-impact-value>$0</strong><small data-impact-hours>0 horas al año para revisar</small></div>
+    </form>
+  </section>
+{% endblock %}
+{% block scripts %}<script src="{% static 'js/solutions.js' %}" defer></script>{% endblock %}

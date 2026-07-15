@@ -1,0 +1,55 @@
+{% extends "website/base.html" %}
+{% block title %}Planes empresariales | Nexo Norte{% endblock %}
+{% block meta_description %}Compara los planes Norte Base, Norte Conecta y Norte Escala para iniciar la transformación de tu negocio.{% endblock %}
+{% block content %}
+  {% include "website/partials/page_hero.html" with eyebrow="Planes Impulso Norte" heading="Un alcance claro antes de empezar." summary="Paquetes diseñados para comenzar con control. Los precios son orientativos y se confirman después de entender el proceso, los datos y el riesgo." %}
+
+  <section class="pricing-section section-shell section-light">
+    <div class="plan-principles" aria-label="Cómo leer los planes">
+      <div><span>01</span><strong>Elige por procesos</strong><small>No por cantidad de funciones.</small></div>
+      <div><span>02</span><strong>Implementación separada</strong><small>Licencias e infraestructura se hacen visibles.</small></div>
+      <div><span>03</span><strong>Crece sin reiniciar</strong><small>Cada nivel prepara el siguiente.</small></div>
+    </div>
+    <div class="pricing-grid">
+      {% for plan in plans %}
+        <article class="pricing-card{% if plan.featured %} is-featured{% endif %}">
+          {% if plan.featured %}<span class="popular-label">Recomendado</span>{% endif %}
+          <p class="plan-eyebrow">{{ plan.eyebrow }}</p>
+          <h2>{{ plan.name }}</h2>
+          <div class="plan-price"><strong>{{ plan.price }}</strong><span>{{ plan.price_note }}</span></div>
+          <p class="plan-duration">Duración estimada · {{ plan.duration }}</p>
+          <p class="plan-audience">Ideal para: {{ plan.audience }}</p>
+          <p class="plan-description">{{ plan.description }}</p>
+          <ul>{% for feature in plan.features %}<li>{{ feature }}</li>{% endfor %}</ul>
+          <a class="button {% if plan.featured %}button-primary{% else %}button-outline{% endif %}" href="{% url 'contact' %}?plan={{ plan.slug }}">Elegir {{ plan.name }} <span aria-hidden="true">→</span></a>
+        </article>
+      {% endfor %}
+    </div>
+    <p class="pricing-disclaimer"><strong>Importante:</strong> estos valores son referencias para el proyecto demostrativo. Impuestos, licencias de terceros, infraestructura y desarrollos fuera del alcance se cotizan por separado.</p>
+  </section>
+
+  <section class="comparison section-shell">
+    <div class="section-heading section-heading-dark"><p class="eyebrow"><span></span> Comparación</p><h2>Elige por alcance,<br>no solo por precio.</h2></div>
+    <div class="comparison-table-wrap">
+      <table class="comparison-table">
+        <thead><tr><th scope="col">Capacidad</th><th scope="col">Norte Base</th><th scope="col">Norte Conecta</th><th scope="col">Norte Escala</th></tr></thead>
+        <tbody>{% for row in plan_comparison %}<tr>{% for cell in row %}{% if forloop.first %}<th scope="row">{{ cell }}</th>{% else %}<td>{{ cell }}</td>{% endif %}{% endfor %}</tr>{% endfor %}</tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="continuity-plan section-shell section-light">
+    <div><p class="eyebrow eyebrow-dark"><span></span> Acompañamiento continuo</p><h2>Norte Continuidad</h2><p>Después de implementar, podemos acompañar actualizaciones, monitoreo, respaldos, pequeñas mejoras y revisión mensual de indicadores.</p></div>
+    <div class="continuity-price"><strong>Desde $690.000</strong><span>COP por mes</span><a href="{% url 'contact' %}?plan=norte-conecta">Consultar acompañamiento →</a></div>
+  </section>
+
+  <section class="plan-faq section-shell">
+    <div><p class="eyebrow"><span></span> Preguntas frecuentes</p><h2>Lo que conviene aclarar antes de decidir.</h2></div>
+    <div class="faq-list">
+      <details><summary>¿El diagnóstico tiene costo?</summary><p>La conversación inicial no tiene costo. Si se necesita una auditoría profunda, se define su alcance antes de comenzar.</p></details>
+      <details><summary>¿Debo pagar todo al inicio?</summary><p>No necesariamente. Los proyectos pueden organizarse por hitos verificables según duración y alcance.</p></details>
+      <details><summary>¿Las licencias están incluidas?</summary><p>Solo cuando se indique expresamente. Preferimos separar servicios, infraestructura y licencias para que el costo sea transparente.</p></details>
+      <details><summary>¿Puedo comenzar con Base y crecer después?</summary><p>Sí. Cada plan está diseñado para dejar documentación y una base que pueda conectarse con la siguiente etapa.</p></details>
+    </div>
+  </section>
+{% endblock %}
