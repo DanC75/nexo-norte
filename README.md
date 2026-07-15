@@ -108,3 +108,7 @@ docker build -t nexo-norte:local .
 
 Consulta [SECURITY.md](SECURITY.md) para reportar vulnerabilidades y
 [`docs/threat-model.md`](docs/threat-model.md) para conocer las amenazas consideradas.
+
+## Licencia
+
+Este proyecto se distribuye bajo la [licencia MIT](LICENSE). Copyright © 2026 Daniel Castro.
