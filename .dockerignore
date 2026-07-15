@@ -2,6 +2,12 @@
 .github
 .env
 .venv
+.cache
+.mypy_cache
+.pytest_cache
+.ruff_cache
+.coverage
+.dev-server*.log
 __pycache__
 *.py[cod]
 *.sqlite3
