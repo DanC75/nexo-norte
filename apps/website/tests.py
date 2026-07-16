@@ -16,7 +16,16 @@ class HomeTests(TestCase):
         self.assertNotContains(response, '<form method="post"')
         self.assertNotContains(response, 'class="decision-path')
         self.assertNotContains(response, 'class="home-plans')
+        self.assertNotContains(response, 'class="service-preview')
+        self.assertNotContains(response, 'class="sector-grid')
+        self.assertNotContains(response, 'class="method-steps')
         self.assertNotContains(response, "Norte Base")
+        self.assertNotContains(response, "Ventas digitales")
+        self.assertNotContains(response, "Explorar las 6 soluciones")
+        self.assertContains(response, "Explorar soluciones", count=1)
+        self.assertContains(response, "Menos dependencia de la memoria")
+        self.assertContains(response, "Puede encajar si")
+        self.assertContains(response, "Quizá aún no si")
         self.assertIn("default-src 'self'", response.headers["Content-Security-Policy"])
 
     def test_home_does_not_accept_diagnostic_submissions(self) -> None:
@@ -42,12 +51,29 @@ class PublicPageTests(TestCase):
                 response = self.client.get(reverse(name))
                 self.assertEqual(response.status_code, 200)
 
+    def test_regional_coverage_exposes_colombia_and_peru(self) -> None:
+        plans_response = self.client.get(reverse("plans"))
+        self.assertContains(plans_response, "Colombia · COP")
+        self.assertContains(plans_response, "Perú · PEN")
+        self.assertContains(plans_response, "S/ 1,450")
+        self.assertContains(plans_response, "S/ 3,800")
+        self.assertContains(plans_response, "data-region-dialog", count=1)
+        self.assertContains(plans_response, "¿Estás en")
+
+        privacy_response = self.client.get(reverse("privacy"))
+        self.assertContains(privacy_response, "sin solicitar ubicación GPS")
+
+        solutions_response = self.client.get(reverse("solutions"))
+        self.assertContains(solutions_response, 'data-pe-value="25"')
+        self.assertContains(solutions_response, 'data-pe="PEN"')
+
     def test_global_navigation_is_not_duplicated(self) -> None:
         response = self.client.get(reverse("home"))
         html = response.content
         self.assertEqual(html.count(b'id="site-nav"'), 1)
         self.assertEqual(html.count(b'class="mobile-action-dock"'), 1)
         self.assertEqual(html.count(b'<main id="contenido">'), 1)
+        self.assertEqual(html.count(b'class="utility-home is-active"'), 1)
 
     def test_diagnostic_form_has_one_canonical_page(self) -> None:
         pages_without_form = (
@@ -86,20 +112,37 @@ class PublicPageTests(TestCase):
             {
                 "name": "Carlos Ruiz",
                 "business": "Distribuciones Norte",
+                "country": "pe",
                 "email": "carlos@example.com",
                 "need": "security",
                 "plan": "norte-conecta",
                 "message": "Necesitamos revisar accesos y respaldos.",
             },
         )
-        self.assertRedirects(response, reverse("contact"))
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.headers["Location"], reverse("contact"))
         self.assertEqual(DiagnosticRequest.objects.count(), 1)
         self.assertEqual(DiagnosticRequest.objects.get().plan, "norte-conecta")
+        self.assertEqual(DiagnosticRequest.objects.get().country, "pe")
+
+        success_response = self.client.get(reverse("contact"))
+        self.assertContains(success_response, "data-submission-dialog", count=1)
+        self.assertContains(success_response, "Tu información fue enviada")
+        self.assertContains(success_response, 'data-home-url="/"')
+
+        refreshed_response = self.client.get(reverse("contact"))
+        self.assertNotContains(refreshed_response, "data-submission-dialog")
 
     def test_invalid_contact_request_is_not_saved(self) -> None:
         response = self.client.post(
             reverse("contact"),
-            {"name": "Laura", "business": "Negocio", "email": "no-es-email", "need": "sales"},
+            {
+                "name": "Laura",
+                "business": "Negocio",
+                "country": "co",
+                "email": "no-es-email",
+                "need": "sales",
+            },
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(DiagnosticRequest.objects.count(), 0)
@@ -111,6 +154,7 @@ class PublicPageTests(TestCase):
             {
                 "name": "Robot",
                 "business": "Spam",
+                "country": "co",
                 "email": "robot@example.com",
                 "need": "sales",
                 "website": "https://spam.example.com",

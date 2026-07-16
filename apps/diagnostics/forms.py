@@ -16,10 +16,11 @@ class DiagnosticRequestForm(forms.ModelForm):
 
     class Meta:
         model = DiagnosticRequest
-        fields = ["name", "business", "email", "need", "plan", "message"]
+        fields = ["name", "business", "country", "email", "need", "plan", "message"]
         widgets = {
             "name": forms.TextInput(attrs={"placeholder": "Tu nombre", "autocomplete": "name"}),
             "business": forms.TextInput(attrs={"placeholder": "Nombre de tu negocio"}),
+            "country": forms.Select(attrs={"data-country-sync": ""}),
             "email": forms.EmailInput(
                 attrs={"placeholder": "nombre@negocio.com", "autocomplete": "email"}
             ),

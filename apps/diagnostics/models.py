@@ -2,6 +2,10 @@ from django.db import models
 
 
 class DiagnosticRequest(models.Model):
+    class Country(models.TextChoices):
+        COLOMBIA = "co", "Colombia"
+        PERU = "pe", "Perú"
+
     class Need(models.TextChoices):
         SALES = "sales", "Ventas"
         INVENTORY = "inventory", "Inventario"
@@ -15,6 +19,9 @@ class DiagnosticRequest(models.Model):
 
     name = models.CharField("nombre", max_length=120)
     business = models.CharField("negocio", max_length=160)
+    country = models.CharField(
+        "país", max_length=2, choices=Country.choices, default=Country.COLOMBIA
+    )
     email = models.EmailField("correo electrónico")
     need = models.CharField("necesidad principal", max_length=20, choices=Need.choices)
     plan = models.CharField("plan de interés", max_length=20, choices=Plan.choices, blank=True)

@@ -5,6 +5,11 @@
   {% include "website/partials/page_hero.html" with eyebrow="Planes Impulso Norte" heading="Un alcance claro antes de empezar." summary="Paquetes diseñados para comenzar con control. Los precios son orientativos y se confirman después de entender el proceso, los datos y el riesgo." %}
 
   <section class="pricing-section section-shell section-light">
+    <div class="regional-pricing-note" aria-live="polite">
+      <span>Precios regionales</span>
+      <strong data-region-text data-co="Valores orientativos para Colombia en COP" data-pe="Valores orientativos para Perú en PEN">Valores orientativos para Colombia en COP</strong>
+      <small>Cambia el país desde la barra superior. El alcance final se confirma después del diagnóstico.</small>
+    </div>
     <div class="plan-principles" aria-label="Cómo leer los planes">
       <div><span>01</span><strong>Elige por procesos</strong><small>No por cantidad de funciones.</small></div>
       <div><span>02</span><strong>Implementación separada</strong><small>Licencias e infraestructura se hacen visibles.</small></div>
@@ -16,7 +21,10 @@
           {% if plan.featured %}<span class="popular-label">Recomendado</span>{% endif %}
           <p class="plan-eyebrow">{{ plan.eyebrow }}</p>
           <h2>{{ plan.name }}</h2>
-          <div class="plan-price"><strong>{{ plan.price }}</strong><span>{{ plan.price_note }}</span></div>
+          <div class="plan-price">
+            <strong data-region-text data-co="{{ plan.price_co }}" data-pe="{{ plan.price_pe }}">{{ plan.price_co }}</strong>
+            <span data-region-text data-co="{{ plan.price_note_co }}" data-pe="{{ plan.price_note_pe }}">{{ plan.price_note_co }}</span>
+          </div>
           <p class="plan-duration">Duración estimada · {{ plan.duration }}</p>
           <p class="plan-audience">Ideal para: {{ plan.audience }}</p>
           <p class="plan-description">{{ plan.description }}</p>
@@ -40,7 +48,11 @@
 
   <section class="continuity-plan section-shell section-light">
     <div><p class="eyebrow eyebrow-dark"><span></span> Acompañamiento continuo</p><h2>Norte Continuidad</h2><p>Después de implementar, podemos acompañar actualizaciones, monitoreo, respaldos, pequeñas mejoras y revisión mensual de indicadores.</p></div>
-    <div class="continuity-price"><strong>Desde $690.000</strong><span>COP por mes</span><a href="{% url 'contact' %}?plan=norte-conecta">Consultar acompañamiento →</a></div>
+    <div class="continuity-price">
+      <strong data-region-text data-co="Desde $690.000" data-pe="Desde S/ 670">Desde $690.000</strong>
+      <span data-region-text data-co="COP por mes" data-pe="PEN por mes">COP por mes</span>
+      <a href="{% url 'contact' %}?plan=norte-conecta">Consultar acompañamiento →</a>
+    </div>
   </section>
 
   <section class="plan-faq section-shell">

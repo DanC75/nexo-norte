@@ -1,4 +1,3 @@
-from django.contrib import messages
 from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_GET, require_http_methods
@@ -12,29 +11,27 @@ from .content import CASE_SCENARIOS, METHOD_STAGES, PLAN_COMPARISON, PLANS, SERV
 def _diagnostic_page(
     request: HttpRequest, template_name: str, success_url: str, **context: object
 ) -> HttpResponse:
+    submission_success = request.method == "GET" and request.session.pop(
+        "diagnostic_submitted", False
+    )
     requested_plan = request.GET.get("plan", "")
     valid_plans = {choice for choice, _label in DiagnosticRequest.Plan.choices}
     initial = {"plan": requested_plan} if requested_plan in valid_plans else None
     form = DiagnosticRequestForm(request.POST or None, initial=initial)
     if request.method == "POST" and form.is_valid():
         form.save()
-        messages.success(
-            request, "Recibimos tu solicitud. Te contactaremos para preparar el diagnóstico."
-        )
+        request.session["diagnostic_submitted"] = True
         return redirect(success_url)
-    return render(request, template_name, {"form": form, **context})
+    return render(
+        request,
+        template_name,
+        {"form": form, "submission_success": submission_success, **context},
+    )
 
 
 @require_GET
 def home(request: HttpRequest) -> HttpResponse:
-    return render(
-        request,
-        "website/home.html",
-        {
-            "services": SERVICES[:3],
-            "method_stages": METHOD_STAGES,
-        },
-    )
+    return render(request, "website/home.html")
 
 
 def solutions(request: HttpRequest) -> HttpResponse:

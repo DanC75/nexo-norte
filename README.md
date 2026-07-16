@@ -2,6 +2,8 @@
 
 Landing y base operativa de una empresa ficticia que ayuda a pequeños negocios a conectar ventas, inventario y seguridad.
 
+La experiencia comercial contempla atención remota en Colombia y Perú, con precios orientativos y simulaciones localizadas en COP y PEN.
+
 La primera versión utiliza la dirección visual **Impulso Norte**: una identidad tecnológica de alto contraste, con azul eléctrico y verde lima, diseñada para sentirse enérgica sin perder claridad.
 
 ## Arquitectura
@@ -38,16 +40,33 @@ La explicación completa está en [`docs/architecture.md`](docs/architecture.md)
 
 ## Inicio rápido con Docker
 
-1. Copia `.env.example` como `.env` y cambia los secretos.
-2. Construye y levanta los servicios:
+1. Abre Docker Desktop.
+2. Desde PowerShell, ejecuta el iniciador seguro:
 
    ```powershell
-   docker compose up --build
+   .\scripts\start-local.ps1
    ```
 
 3. Abre `http://localhost:8000`.
 
-La aplicación espera a que PostgreSQL esté saludable, aplica las migraciones y arranca el servidor automáticamente.
+El iniciador crea `.env` con secretos aleatorios solamente cuando todavía no
+existe. Si encuentra un archivo previo, lo conserva y valida antes de permitir
+el arranque. Nunca copies `.env.example` sobre una instalación existente:
+PostgreSQL conserva su contraseña dentro del volumen y reemplazar `.env` puede
+dejar ambos valores desincronizados.
+
+Incluso si alguien evita el iniciador y ejecuta `docker compose` directamente,
+Compose rechazará el arranque cuando falten los secretos obligatorios. Los
+valores inseguros por defecto fueron eliminados.
+
+Para comprobar la configuración sin iniciar Docker:
+
+```powershell
+.\scripts\start-local.ps1 -CheckOnly
+```
+
+La aplicación espera a que PostgreSQL esté saludable, aplica las migraciones y
+confirma que el servidor web esté listo.
 
 ## Desarrollo local sin Docker
 
@@ -88,6 +107,18 @@ docker build -t nexo-norte:local .
 | `POSTGRES_PASSWORD` | Contraseña de PostgreSQL. |
 | `POSTGRES_HOST` | Host del servidor de base de datos. |
 | `POSTGRES_PORT` | Puerto de PostgreSQL. |
+
+### Secretos locales y de producción
+
+`.env` se utiliza exclusivamente para desarrollo local, está excluido tanto de
+Git como del contexto de construcción de Docker y no debe compartirse. Cambiar
+`POSTGRES_PASSWORD` en ese archivo no modifica la contraseña de un volumen de
+PostgreSQL ya inicializado; una rotación requiere una operación explícita sobre
+la base de datos.
+
+En producción, los secretos deben inyectarse desde el sistema de despliegue,
+Docker Secrets o un gestor de secretos. El archivo `.env` local no se reutiliza
+como configuración de producción.
 
 ## Flujo de Git
 

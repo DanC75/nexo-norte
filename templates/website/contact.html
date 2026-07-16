@@ -2,6 +2,19 @@
 {% block title %}Solicitar diagnóstico | Nexo Norte{% endblock %}
 {% block meta_description %}Cuéntanos qué necesita mejorar tu negocio y prepara un primer diagnóstico con Nexo Norte.{% endblock %}
 {% block content %}
+  {% if submission_success %}
+    <dialog class="submission-dialog" data-submission-dialog data-home-url="{% url 'home' %}" aria-labelledby="submission-title" aria-describedby="submission-description">
+      <div class="submission-mark" aria-hidden="true">✓</div>
+      <p class="region-dialog-eyebrow">Solicitud registrada</p>
+      <h2 id="submission-title">Tu información fue enviada.</h2>
+      <p id="submission-description">Gracias por confiar en Nexo Norte. Revisaremos el contexto de tu negocio antes de responderte.</p>
+      <div class="submission-status" aria-live="polite">Volveremos al inicio en <strong data-redirect-countdown>7</strong> segundos.</div>
+      <div class="submission-actions">
+        <a class="button button-primary" href="{% url 'home' %}">Ir al inicio ahora <span aria-hidden="true">→</span></a>
+        <button class="region-stay" type="button" data-stay-on-contact>Permanecer en esta página</button>
+      </div>
+    </dialog>
+  {% endif %}
   <section class="contact-page section-shell">
     <div class="contact-copy"><p class="eyebrow"><span></span> Hablemos del punto de partida</p><h1>Una conversación clara antes de cualquier propuesta.</h1><p>Describe la necesidad principal de tu negocio. La solicitud quedará registrada de forma segura para preparar el diagnóstico.</p><ul class="contact-expectations"><li>Respuesta contextual, no automática</li><li>Alcance inicial pequeño y medible</li><li>Sin compromiso comercial</li></ul></div>
     <div class="form-panel">{% include "website/partials/diagnostic_form.html" %}</div>
